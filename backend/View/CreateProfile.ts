@@ -1,0 +1,206 @@
+export const createProfile = (otp: string, firstName: string, lastName: string) => {
+    return (`<!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            * {
+                padding: 0;
+            }
+    
+            .userName{
+                font-weight: 600;
+                font-size: 30px;
+                padding-bottom: 20px;
+                padding-top: 20px;
+            }
+    
+            .headingText {
+                background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(255, 209, 67, 1) 0%, rgba(255, 145, 83, 1) 90%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 20px;
+                font-weight: 600;
+                padding: 20px;
+                font-size: 42px;
+            }
+    
+    
+            .headerClass {
+                width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+                display: flex;
+            }
+    
+            .container {
+                width: 500px;
+                height: max-content;
+                margin-left: auto;
+                margin-right: auto;
+                background-color: black;
+                padding-bottom: 20px;
+            }
+    
+            .linkedInHeder {
+                height: 50px;
+            }
+    
+            .userBlock {
+                color: white;
+                padding-top: 22px;
+                font-size: 30px;
+                display: flex;
+                padding-right: 50px;
+                padding-left: 150px;
+            }
+    
+            .userImage {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+    
+            .userText {
+                padding-top: 11px;
+                padding-left: 75px;
+                padding-right: 10px;
+                font-size: 25px;
+            }
+    
+            .mailText {
+                color: white;
+                padding-left: 50px;
+            }
+    
+            .div1 {
+                font-size: 20px;
+                padding-top: 10px;
+            }
+    
+            .div2 {
+                margin-top: 10px;
+                font-size: 25px;
+            }
+    
+            .OTPdiv {
+                padding-top: 20px;
+                font-size: 30px;
+                font-weight: 600;
+            }
+    
+            .div3 {
+                padding-top: 20px;
+                font-size: 15px;
+            }
+    
+            .div4 {
+                padding-top: 20px;
+            }
+    
+            @media screen and (max-width:320px) {
+                .container {
+                    width: 100px;
+                }
+    
+                .headerClass {
+                    width: 200px;
+                }
+    
+                .mailText {
+                    padding-left: 10px;
+                }
+    
+                .logo {
+                    padding-left: 10px;
+                }
+    
+                .userBlock {
+                    padding-right: 10px;
+                    padding-left: 80px;
+                }
+            }
+    
+            @media screen and (max-width:375px) {
+                .container {
+                    width: 350px;
+                }
+    
+                .headerClass {
+                    width: 100%;
+                }
+    
+                .logo {
+                    padding-left: 10px;
+                }
+    
+                .userBlock {
+                    padding-right: 10px;
+                    padding-left: 80px;
+                }
+    
+                .mailText {
+                    padding-left: 10px;
+                }
+            }
+    
+            @media screen and (max-width:425px) {
+                .container {
+                    width: 350px;
+                }
+    
+                .headerClass {
+                    width: 100%;
+                }
+    
+                .logo {
+                    padding-left: 10px;
+                }
+    
+                .mailText {
+                    padding-left: 20px;
+                }
+    
+                .userBlock {
+                    padding-right: 10px;
+                    padding-left: 65px;
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="container">
+            <!--div for header  -->
+            <div class="headingText">Candidate Hiring Portal</div>
+    
+            <hr>
+    
+            <div class="mailText">
+    
+                <div class="userName">Hello ${firstName} ${lastName},</div>
+    
+                <div class="div2">
+                    Thank you for signing up
+                </div>
+    
+                <div class="div3">
+                    Enter this code to confirm you account
+                </div>
+    
+                <div class="OTPdiv">
+                    ${otp}
+                </div>
+    
+                <div class="div4">
+                    Thanks for helping us keep your account secure.
+                </div>
+            </div>
+        </div>
+    </body>
+    
+    </html>`)
+}
