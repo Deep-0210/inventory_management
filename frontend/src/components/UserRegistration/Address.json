@@ -1,0 +1,123 @@
+    {
+        "Country": [
+            {
+                "CountryID": 1,
+                "CountryName": "India"
+            },
+            {
+                "CountryID": 2,
+                "CountryName": "Canada"
+            },
+            {
+                "CountryID": 3,
+                "CountryName": "United States"
+            }
+        ],
+        "Cities": [
+            {
+                "CityID": 1,
+                "Name": "Ahmedabad",
+                "CountryID": 1
+            },
+            {
+                "CityID": 2,
+                "Name": "Surat",
+                "CountryID": 1
+            },
+            {
+                "CityID": 3,
+                "Name": "Mumbai",
+                "CountryID": 1
+            },
+            {
+                "CityID": 4,
+                "Name": "Bangalore",
+                "CountryID": 1
+            },
+            {
+                "CityID": 5,
+                "Name": "Pune",
+                "CountryID": 1
+            },
+            {
+                "CityID": 6,
+                "Name": "Chennai",
+                "CountryID": 1
+            },
+            {
+                "CityID": 7,
+                "Name": "Varanasi",
+                "CountryID": 1
+            },
+            {
+                "CityID": 8,
+                "Name": "Toronto",
+                "CountryID": 2
+            },
+            {
+                "CityID": 9,
+                "Name": "Vancouver",
+                "CountryID": 2
+            },
+            {
+                "CityID": 10,
+                "Name": "Ottawa",
+                "CountryID": 2
+            },
+            {
+                "CityID": 11,
+                "Name": "Montreal",
+                "CountryID": 2
+            },
+            {
+                "CityID": 12,
+                "Name": "Kingston",
+                "CountryID": 2
+            },
+            {
+                "CityID": 13,
+                "Name": "Surrey",
+                "CountryID": 2
+            },
+            {
+                "CityID": 14,
+                "Name": "Sherbrooke",
+                "CountryID": 2
+            },
+            {
+                "CityID": 15,
+                "Name": "New York",
+                "CountryID": 3
+            },
+            {
+                "CityID": 16,
+                "Name": "Chicago",
+                "CountryID": 3
+            },
+            {
+                "CityID": 17,
+                "Name": "Los Angeles",
+                "CountryID": 3
+            },
+            {
+                "CityID": 18,
+                "Name": "San Francisco",
+                "CountryID": 3
+            },
+            {
+                "CityID": 19,
+                "Name": "Boston",
+                "CountryID": 3
+            },
+            {
+                "CityID": 20,
+                "Name": "Oakland",
+                "CountryID": 3
+            },
+            {
+                "CityID": 21,
+                "Name": "Columbus",
+                "CountryID": 3
+            }
+        ]
+    }
