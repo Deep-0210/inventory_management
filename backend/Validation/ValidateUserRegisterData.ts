@@ -6,6 +6,7 @@ export const validateRegisterUser = (data: object) => {
         email: joi.string().required().email(),
         firstName: joi.string().required().regex(/^[a-zA-z]+$/),
         lastName: joi.string().required().pattern(/^[a-zA-z]+$/),
+        role: joi.string().required().pattern(/^[a-zA-z]+$/),
         country: joi.string().required(),
         city: joi.string().required()
     })

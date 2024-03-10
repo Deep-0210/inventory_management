@@ -11,12 +11,13 @@ export const registrationOTP = async (req: Request, res: Response) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             country: req.body.country,
+            role: req.body.role,
             city: req.body.city
         });
 
         if (validateUserRegistrationData.error) {
             res.status(400).json({ "Message": validateUserRegistrationData.error.details[0].message });
-        } 
+        }
         else {
             const OTP = Math.floor(Math.random() * 1000000);
 

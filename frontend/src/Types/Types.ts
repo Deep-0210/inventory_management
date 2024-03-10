@@ -21,6 +21,7 @@ export interface UserSignUp {
 export interface RegisterUser {
     firstName: string,
     lastName: string,
+    vendorRole: string
     userCountry: string,
     userCity: string
 };
@@ -31,6 +32,7 @@ export interface UserProfileData {
     lastName: string
     userCountry: string
     userCity: string
+    vendorRole: string
 }
 
 // Interface for otpCheck component

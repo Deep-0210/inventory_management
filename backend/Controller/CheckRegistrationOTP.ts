@@ -23,10 +23,9 @@ export const checkRegistrationOTP = async (req: Request, res: Response) => {
                 const newUserProfileData = {
                     email: req.body.email,
                     firstName: req.body.firstName,
-                    middleName: req.body.middleName,
                     lastName: req.body.lastName,
-                    userImage: req.body.userImage,
                     country: req.body.country,
+                    role: req.body.role,
                     city: req.body.city
                 };
 
