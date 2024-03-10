@@ -175,7 +175,7 @@ export const createProfile = (otp: string, firstName: string, lastName: string) 
     <body>
         <div class="container">
             <!--div for header  -->
-            <div class="headingText">Candidate Hiring Portal</div>
+            <div class="headingText">Inventory Management Portal</div>
     
             <hr>
     

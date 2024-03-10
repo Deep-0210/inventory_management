@@ -7,7 +7,7 @@ import { Button } from "@material-tailwind/react";
 import { postRequest } from '../../Service/Service';
 import { useNavigate } from 'react-router-dom';
 
-export default function RegisterUserData({ userData, userProfileData }: { userData: Array<UserSignUp>, userProfileData: Function }) {
+export default function RegisterUserData({ userData, userProfileData }: Readonly<{ userData: Array<UserSignUp>, userProfileData: Function }>) {
 
     const navigate = useNavigate()
 
@@ -15,13 +15,14 @@ export default function RegisterUserData({ userData, userProfileData }: { userDa
     const validateUserData = yup.object({
         firstName: yup.string().required("* First Name is a required field").matches(/^[a-zA-Z]+$/, "* First Name should be characters only"),
         lastName: yup.string().required("* Last Name is a required field").matches(/^[A-Za-z]+$/, "* Last Name should be characters only"),
+        vendorRole: yup.string().required("* Role is a required field").notOneOf(['def'], 'Role is a required field'),
         userCountry: yup.string().required("* Country is a required field").notOneOf(['def'], 'Country is a required field'),
         userCity: yup.string().required("* City is a required field").notOneOf(['def'], 'City is a required field')
     });
 
     // Formic state for store data and validation
     const { values, touched, errors, handleBlur, handleSubmit, handleChange } = useFormik({
-        initialValues: { firstName: "", lastName: "", userCountry: "def", userCity: "" },
+        initialValues: { firstName: "", lastName: "", vendorRole: "def", userCountry: "def", userCity: "" },
         validationSchema: validateUserData,
         onSubmit: (values: RegisterUser) => {
             submitUserData(values)
@@ -44,6 +45,7 @@ export default function RegisterUserData({ userData, userProfileData }: { userDa
             email: userData[0].email,
             firstName: data.firstName,
             lastName: data.lastName,
+            role: data.vendorRole,
             country: data.userCountry,
             city: data.userCity
         });
@@ -72,13 +74,11 @@ export default function RegisterUserData({ userData, userProfileData }: { userDa
     }, [])
 
     return (
-        <div className='signUpCard h-screen w-full'>
-            <div className='flex justify-between'>
-                <div className='text-3xl font-semibold p-3.5 headingText'>Inventory Management System</div>
-            </div>
+        <div className='bg-[rgb(3,29,78)] h-[100%] w-full'>
+            <div className='text-3xl font-semibold p-3.5 headingText'>Inventory Management System</div>
 
-            <div className='mt-28'>
-                <div className='w-[400px] mx-auto rounded-lg h-max pb-5 border-2 border-white'>
+            <div className='pt-20 pb-10'>
+                <div className='max-w-[400px] mx-auto rounded-lg pb-5 border-2 border-white' >
                     <form onSubmit={handleSubmit}>
                         {/* User first name div */}
                         <div className='w-full mt-5 px-5'>
@@ -92,6 +92,18 @@ export default function RegisterUserData({ userData, userProfileData }: { userDa
                             <div className='text-white font-semibold text-xs pb-1 ps-0.5'><span>Last Name *</span></div>
                             <input type="text" name="lastName" id="lastName" className='rounded-lg px-2 bg-white h-8 w-full placeholder:text-black placeholder:font-semibold text-black' placeholder='Last Name' onChange={handleChange} onBlur={handleBlur} />
                             <div className='text-red-700 font-semibold'><small>{touched.lastName && errors.lastName}</small></div>
+                        </div>
+
+                        {/* vendor role selection */}
+                        <div className='w-full mt-5 px-5'>
+                            <div className='text-white font-semibold text-xs pb-1 ps-0.5'><span>Role *</span></div>
+                            <select name="vendorRole" id="vendorRole" className='w-full rounded-lg h-8 font-semibold' onChange={handleChange} onBlur={handleBlur}>
+                                <option value="def">Select vendor role</option>
+                                <option value="superVendor">superVendor</option>
+                                <option value="adminVendor">adminVendor</option>
+                                <option value="vendor">vendor</option>
+                            </select>
+                            <div className='text-red-700 font-semibold'><small>{touched.vendorRole && errors.vendorRole}</small></div>
                         </div>
 
                         {/* user select country div */}

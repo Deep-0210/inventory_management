@@ -42,6 +42,7 @@ export default function CheckOTP({ ProfileData, userData }: { ProfileData: Array
             firstName: ProfileData[0].firstName,
             lastName: ProfileData[0].lastName,
             country: ProfileData[0].userCountry,
+            role: ProfileData[0]?.vendorRole,
             city: ProfileData[0].userCity
         })
         postRequest("checkRegistrationOTP", Data).then((res) => {
