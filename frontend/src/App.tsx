@@ -7,6 +7,7 @@ import RegisterUserData from './components/UserRegistration/RegisterUserData';
 import { UserProfileData, UserSignUp } from './Types/Types';
 import CheckOTP from './components/CheckOTP/CheckOTP';
 import UserMainPage from './components/UserMainPage/UserMainPage';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 
 function App() {
    // Function to store userSignData
@@ -29,6 +30,7 @@ function App() {
         <Route path='/new/registration' element={<RegisterUserData userData={userData} userProfileData={userProfileData}/>} />
         <Route path='/verify-otp' element={<CheckOTP ProfileData={ProfileData} userData={userData} />} />
         <Route path='/user-page' element={<UserMainPage />} />
+        <Route path='/forget-password' element={<ForgotPassword />} />
       </Routes>
     </Router>
   );
