@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const userRegister = new mongoose.Schema({
+    vendorRef: { type: Schema.Types.ObjectId, required: true, ref: "userData" },
     email: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },

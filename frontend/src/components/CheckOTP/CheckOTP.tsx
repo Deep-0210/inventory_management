@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { OTPCheck, UserProfileData, UserSignUp } from '../../Types/Types'
+import { OTPCheck, RootState, UserRegistration } from '../../Types/Types'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
-import { Button } from "@material-tailwind/react";
 import { postRequest } from '../../Service/Service';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Button, Dialog, DialogHeader, DialogBody } from "@material-tailwind/react"
 
-export default function CheckOTP({ ProfileData, userData }: { ProfileData: Array<UserProfileData>, userData: Array<UserSignUp> }) {
-
-    const navigate = useNavigate()
+export default function CheckOTP({ openModal, registerData, resetModalValue }: { openModal: number, registerData: UserRegistration | undefined, resetModalValue: Function }) {
 
     // Function to validate OTP
     const validateOTP = Yup.object({
@@ -26,8 +24,8 @@ export default function CheckOTP({ ProfileData, userData }: { ProfileData: Array
 
     // useEffect to check user refresh page or not
     useEffect(() => {
-        if (!userData[0]?.email) {
-            navigate('/')
+        if (!registerData?.email) {
+            resetModalValue(0)
         }
         // eslint-disable-next-line
     }, [])
@@ -37,13 +35,13 @@ export default function CheckOTP({ ProfileData, userData }: { ProfileData: Array
     const submitUserData = (data: OTPCheck) => {
         const Data = JSON.stringify({
             OTP: data.OTP,
-            email: userData[0].email,
-            password: userData[0].password,
-            firstName: ProfileData[0].firstName,
-            lastName: ProfileData[0].lastName,
-            country: ProfileData[0].userCountry,
-            role: ProfileData[0]?.vendorRole,
-            city: ProfileData[0].userCity
+            userEmail: registerData?.email,
+            password: registerData?.password,
+            firstName: registerData?.firstName,
+            lastName: registerData?.lastName,
+            country: registerData?.country,
+            role: registerData?.role,
+            city: registerData?.city
         })
         postRequest("checkRegistrationOTP", Data).then((res) => {
             // console.log(res)
@@ -53,32 +51,50 @@ export default function CheckOTP({ ProfileData, userData }: { ProfileData: Array
             else {
                 setWrongOTP(0)
                 localStorage.setItem("token", res.Message)
-                navigate('/user-page')
+                handleOpen()
+                resetModalValue(0)
             }
         }).catch((err) => {
             console.log(err)
         })
     }
 
-    return (
-        <div className='signUpCard h-screen w-screen'>
-            <div className='flex justify-between'>
-                <div className='text-3xl font-semibold p-3.5 headingText'>Candidate Hiring Portal</div>
-            </div>
-            <div className='mt-56 border-2 border-white w-[400px] h-max pb-5 rounded-lg mx-auto'>
-                <form onSubmit={handleSubmit}>
-                    <div className='text-white p-3 text-lg text-center'>We sent your registration code on <span className='font-semibold text-xl'>{userData[0]?.email}</span> </div>
-                    <div className='mt-5 px-5'>
-                        <input type="text" name="OTP" value={values.OTP} id="OTP" className='rounded-lg px-2 bg-white h-8 w-full placeholder:text-black placeholder:font-semibold text-black' placeholder='OTP' onChange={handleChange} onBlur={handleBlur} />
-                        <div className='text-red-700 font-semibold'><small>{touched.OTP && errors.OTP}</small></div>
-                        {wrongOTP === 1 ? <div className='text-red-700 font-semibold'><small>* Wrong OTP</small></div> : ""}
-                    </div>
+    const logInUserData = useSelector((state: RootState) => state.value[0])
 
-                    <div className='mt-5 w-max mx-auto'>
-                        <Button placeholder={'submit'} color="green" type='submit'>submit</Button>
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(!open);
+        resetModalValue(0)
+    }
+
+    useEffect(() => {
+        if (openModal === 3) {
+            handleOpen()
+        }
+        // eslint-disable-next-line
+    }, [openModal])
+
+    return (
+        <Dialog placeholder={'mainModal'} open={open} handler={handleOpen} className='signUpCard text-white'>
+            <DialogHeader placeholder={'title'} className='text-white'>Please enter OTP</DialogHeader>
+            <DialogBody placeholder={'body'}>
+                <div className='signUpCard'>
+                    <div className='my-10 border-2 border-white w-[400px] h-max pb-5 rounded-lg mx-auto'>
+                        <form onSubmit={handleSubmit}>
+                            <div className='text-white p-3 text-lg text-center'>We sent your registration code on <span className='font-semibold text-xl'>{logInUserData?.email && logInUserData?.email}</span> </div>
+                            <div className='mt-5 px-5'>
+                                <input type="text" name="OTP" value={values.OTP} id="OTP" className='rounded-lg px-2 bg-white h-8 w-full placeholder:text-black placeholder:font-semibold text-black' placeholder='OTP' onChange={handleChange} onBlur={handleBlur} />
+                                <div className='text-red-700 font-semibold'><small>{touched.OTP && errors.OTP}</small></div>
+                                {wrongOTP === 1 ? <div className='text-red-700 font-semibold'><small>* Wrong OTP</small></div> : ""}
+                            </div>
+
+                            <div className='mt-5 w-max mx-auto'>
+                                <Button placeholder={'submit'} color="green" type='submit'>submit</Button>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
-        </div>
+                </div>
+            </DialogBody>
+        </Dialog>
     )
 }

@@ -39,3 +39,47 @@ export interface UserProfileData {
 export interface OTPCheck {
     OTP: string
 }
+
+// Interface for login user data
+export interface LogInUserData {
+    city: string,
+    country: string,
+    createdAt: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    role: string
+    updatedAt: string
+    __v: number
+    _id: string,
+}
+
+export type RootState = {
+    value: LogInUserData[]
+}
+
+// Interface for vendorList array
+export interface VendorListArray {
+    city: string,
+    country: string,
+    createdAt: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    role: string
+    updatedAt: string
+    vendorRef: string
+    __v: number
+    _id: string,
+}
+
+// Interface for user registration data
+export interface UserRegistration {
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    role: string
+    country: string
+    city: string
+}
