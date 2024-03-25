@@ -10,18 +10,20 @@ dotenv.config()
 export const checkRegistrationOTP = async (req: Request, res: Response) => {
     try {
         const checkOTP = await registerOTPModel.findOne({ "email": req.body.email }).exec();
+        const vendorData = await userRegisterModel.findOne({ "email": req.body.email })
 
         if (checkOTP) {
             if (req.body.OTP === checkOTP?.otp) {
                 req.body.password = await bcrypt.hash(req.body.password, 10);
 
                 const newUserSignUpData = {
-                    email: req.body.email,
+                    email: req.body.userEmail,
                     password: req.body.password
                 };
 
                 const newUserProfileData = {
-                    email: req.body.email,
+                    vendorRef: vendorData?._id,
+                    email: req.body.userEmail,
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     country: req.body.country,

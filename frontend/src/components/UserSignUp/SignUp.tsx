@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { Button } from "@material-tailwind/react";
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
 import { postRequest } from '../../Service/Service';
 import { VscEyeClosed, VscEye } from 'react-icons/vsc'
 import { useFormik } from 'formik'
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Data } from '../../Types/Types';
+import { Data, UserSignUp } from '../../Types/Types';
+import { Button, Dialog, DialogHeader, DialogBody } from "@material-tailwind/react"
+import RegisterUserData from '../UserRegistration/RegisterUserData';
 
-export default function SignUp({ registerData }: { registerData: Function }) {
+export default function SignUp({ openModal, resetModalValue }: { openModal: number, resetModalValue: Function }) {
 
     // Function to print error Message
     const errorMessage = (data: string) => {
@@ -35,19 +35,21 @@ export default function SignUp({ registerData }: { registerData: Function }) {
         }
     })
 
-    const navigate = useNavigate()
 
     // Function to send data of user and receive response
+    const [openRegisterModal, setOpenRegisterModal] = useState<number>(0)
+    const [userData, setUserData] = useState<UserSignUp>()
     const signUpUser = (data: Data) => {
         const newData = JSON.stringify({
             email: data.userEmail,
             password: data.userPassword
         });
 
+        setUserData(JSON.parse(newData))
         postRequest("", newData).then((res) => {
             if (res.Message.includes("New User")) {
-                registerData(JSON.parse(newData))
-                navigate('/new/registration');
+                setOpenRegisterModal(2)
+                handleOpen()
             }
             else if (res.Message.includes("User Already Exist")) {
                 errorMessage("User Already Exist");
@@ -58,63 +60,74 @@ export default function SignUp({ registerData }: { registerData: Function }) {
     }
 
     // Function to show and hide password
-    const [passwdEye, setPasswdWye] = useState(0)
+    const [passwdEye, setPasswdEye] = useState(0)
     const showHidePassword = () => {
         const val = document.getElementById('userPassword') as HTMLInputElement;
 
         if (passwdEye === 0 && val?.type === "password") {
-            setPasswdWye(1)
+            setPasswdEye(1)
             val.type = "text";
         }
         else {
-            setPasswdWye(0)
+            setPasswdEye(0)
             val.type = "password";
         }
     }
 
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(!open);
+        resetModalValue(0)
+    }
+
+    useEffect(() => {
+        if (openModal === 1) {
+            handleOpen()
+        }
+        // eslint-disable-next-line
+    }, [openModal])
+
     return (
-        <div className='signUpCard w-full h-screen text-white'>
-            <div className='flex justify-between'>
-                <div className='text-3xl font-semibold p-3.5 headingText'>Inventory Management Portal</div>
-                <div>
-                    <div className='flex'>
-                        <div className='pt-3 px-2'>
-                            <Button placeholder={'logIn'} color="green"><Link to='/login'>log-in</Link></Button>
+        <>
+            <Dialog placeholder={'mainModal'} open={open} handler={handleOpen} className='signUpCard text-white'>
+                <DialogHeader placeholder={'title'} className='text-white'>Create-new User</DialogHeader>
+                <DialogBody placeholder={'body'}>
+                    <div>
+                        <div className='w-[400px] mx-auto h-max pb-5 my-10 rounded-lg userCard border-2 border-white'>
+                            <form onSubmit={handleSubmit}>
+
+                                {/* div to take email input */}
+                                <div className='w-full mt-5 px-5'>
+                                    <div className='text-white font-semibold text-xs pb-1 ps-0.5'><span>Email</span></div>
+                                    <input type="email" name="userEmail" id="userEmail" value={values.userEmail} className='rounded-lg px-2 bg-white h-8 w-full placeholder:text-black placeholder:font-semibold text-black' placeholder='Email' onChange={handleChange} onBlur={handleBlur} />
+                                    <div className='text-sm text-red-700 font-semibold mt-1'>{touched.userEmail && errors.userEmail}</div>
+                                </div>
+
+                                {/* div for password input */}
+                                <div className='w-full mt-4 px-5 relative'>
+                                    <div className='text-white font-semibold text-xs pb-1 ps-0.5'><span>Password</span></div>
+
+                                    {passwdEye === 0 ?
+                                        <div className='absolute right-0 pe-10 text-black pt-2.5 hover:cursor-pointer'><VscEyeClosed onClick={showHidePassword} /></div>
+                                        :
+                                        <div className='absolute right-0 pe-10 text-black pt-2.5 hover:cursor-pointer'><VscEye onClick={showHidePassword} /></div>}
+
+                                    <input type="password" name="userPassword" value={values.userPassword} id="userPassword" className='rounded-lg px-2 bg-white h-8 w-full placeholder:text-black placeholder:font-semibold text-black' placeholder='Password' onChange={handleChange} onBlur={handleBlur} />
+                                    <div className='text-sm text-red-700 font-semibold mt-1'>{touched.userPassword && errors.userPassword}</div>
+                                </div>
+
+                                {/* div for submit button */}
+                                <div className='mt-5 w-max mx-auto'>
+                                    <Button placeholder={'signUp'} color="green" type='submit'>sign-up</Button>
+                                </div>
+                            </form>
                         </div>
+                        <ToastContainer />
                     </div>
-                </div>
-            </div>
+                </DialogBody>
+            </Dialog>
 
-            <div className='w-[400px] mx-auto h-max pb-5 mt-32 rounded-lg userCard border-2 border-white'>
-                <form onSubmit={handleSubmit}>
-
-                    {/* div to take email input */}
-                    <div className='w-full mt-5 px-5'>
-                        <div className='text-white font-semibold text-xs pb-1 ps-0.5'><span>Email</span></div>
-                        <input type="email" name="userEmail" id="userEmail" value={values.userEmail} className='rounded-lg px-2 bg-white h-8 w-full placeholder:text-black placeholder:font-semibold text-black' placeholder='Email' onChange={handleChange} onBlur={handleBlur} />
-                        <div className='text-sm text-red-700 font-semibold mt-1'>{touched.userEmail && errors.userEmail}</div>
-                    </div>
-
-                    {/* div for password input */}
-                    <div className='w-full mt-4 px-5 relative'>
-                        <div className='text-white font-semibold text-xs pb-1 ps-0.5'><span>Password</span></div>
-
-                        {passwdEye === 0 ?
-                            <div className='absolute right-0 pe-10 text-black pt-2.5 hover:cursor-pointer'><VscEyeClosed onClick={showHidePassword} /></div>
-                            :
-                            <div className='absolute right-0 pe-10 text-black pt-2.5 hover:cursor-pointer'><VscEye onClick={showHidePassword} /></div>}
-
-                        <input type="password" name="userPassword" value={values.userPassword} id="userPassword" className='rounded-lg px-2 bg-white h-8 w-full placeholder:text-black placeholder:font-semibold text-black' placeholder='Password' onChange={handleChange} onBlur={handleBlur} />
-                        <div className='text-sm text-red-700 font-semibold mt-1'>{touched.userPassword && errors.userPassword}</div>
-                    </div>
-
-                    {/* div for submit button */}
-                    <div className='mt-5 w-max mx-auto'>
-                        <Button placeholder={'signUp'} color="green" type='submit'>sign-up</Button>
-                    </div>
-                </form>
-            </div>
-            <ToastContainer />
-        </div>
+            <RegisterUserData userData={userData} openModal={openRegisterModal} resetModalValue={resetModalValue} />
+        </>
     )
 }

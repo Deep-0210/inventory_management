@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@material-tailwind/react";
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
@@ -13,16 +13,16 @@ export default function LogIn() {
   const navigate = useNavigate()
 
   // Function to show and hide password
-  const [passwdEye, setPasswdWye] = useState(0)
+  const [passwdEye, setPasswdEye] = useState(0)
   const showHidePassword = () => {
     const val = document.getElementById('userPassword') as HTMLInputElement;
 
     if (passwdEye === 0 && val?.type === "password") {
-      setPasswdWye(1)
+      setPasswdEye(1)
       val.type = "text";
     }
     else {
-      setPasswdWye(0)
+      setPasswdEye(0)
       val.type = "password";
     }
   }
@@ -31,7 +31,7 @@ export default function LogIn() {
   const errorMessage = (data: string) => {
     toast.error(`${data}`, {
       className: "login-toast",
-    //   position: toast.POSITION.BOTTOM_LEFT,
+      //   position: toast.POSITION.BOTTOM_LEFT,
       autoClose: 3000
     });
   };
@@ -85,16 +85,24 @@ export default function LogIn() {
     }
   }
 
+  // useEffect for the set bg height and width
+  const [width, setWidth] = useState<number>(window.innerWidth)
+  const [height, setHeight] = useState<number>(window.innerHeight)
+  useEffect(() => {
+    setHeight(window.innerHeight)
+    setWidth(window.innerWidth)
+    // eslint-disable-next-line
+  }, [window.innerHeight, window.innerWidth])
 
   return (
-    <div className='signUpCard w-screen h-screen text-white'>
+    <div className='signUpCard text-white' style={{ height: height, width: width }}>
       <div className='flex justify-between'>
         <div className='text-3xl font-semibold p-3.5 headingText'>Inventory Management Portal</div>
         <div>
           <div className='flex'>
-            <div className='pt-3 px-2'>
+            {/* <div className='pt-3 px-2'>
               <Button placeholder={'sign-up'} color="green"><Link to='/'>sign-up</Link></Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

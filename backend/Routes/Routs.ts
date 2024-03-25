@@ -4,20 +4,26 @@ import { checkUserExist } from '../Controller/CheckUserExist';
 import { checkRegistrationOTP } from '../Controller/CheckRegistrationOTP';
 import { UserLogIn } from '../Controller/UserLogIn';
 import { middleware } from '../Middleware/Middleware';
-import { addStock } from '../Controller/AddStock';
-import { checkForgetPasswordOTP, generateForgetPasswordOTP, updateUserPassword } from '../Controller/ForgotPasswoed';
+import { addStock, getStockData } from '../Controller/AddStock';
+import { checkForgetPasswordOTP, generateForgetPasswordOTP, updateUserPassword } from '../Controller/ForgotPassword';
+import { logInUserData } from '../Controller/LogInUserData';
+import { getVendorList } from '../Controller/VendorList';
 
 const route = express.Router();
 
-route.post('/', checkUserExist)
-route.post('/userRegistrationOTP', registrationOTP)
-route.post('/checkRegistrationOTP', checkRegistrationOTP)
-route.post('/userLogIn', UserLogIn)
-route.post('/generateForgotPasswordOTP', generateForgetPasswordOTP)
-route.post('/checkForgetPasswordOTP', checkForgetPasswordOTP)
-route.put('/updateUserPassword', updateUserPassword)
+route.post('/', checkUserExist) // api for check the user exist in db or not
+route.post('/userLogIn', UserLogIn) // api for authenticate the user email and password and provide token
+route.post('/generateForgotPasswordOTP', generateForgetPasswordOTP) // api for create and mail new otp for forget password
+route.post('/checkForgetPasswordOTP', checkForgetPasswordOTP) // api for verify the otp 
+route.put('/updateUserPassword', updateUserPassword) // api for validate new password and update new password in db
 
-route.use(middleware)
-route.post('/addStock', addStock)
+route.use(middleware) // function for authenticate the user for protected routs
+route.post('/checkRegistrationOTP', checkRegistrationOTP) // api for check user otp and register user data
+route.post('/userRegistrationOTP', registrationOTP) // api for create a otp for user registration
+route.post('/addStock', addStock) // api for add the stock for user
+route.get('/logInUserData', logInUserData) // api for get the logIn user data
+route.get('/getVendorList', getVendorList) // api for get the vendor list under the logIn user
+route.post('/addStock', addStock) // api for add stock for vendor
+route.get('/getStockData',getStockData) // api for get the stock data as per the user
 
 export default route;
