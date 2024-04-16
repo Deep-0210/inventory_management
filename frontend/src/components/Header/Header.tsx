@@ -33,7 +33,7 @@ const Header = () => {
       console.log(err)
     });
     // eslint-disable-next-line
-  }, [useSelector((state: RootState) => state.value).length === 0])
+  }, [])
 
   // Function to set value for open modal
   const [openModal, setOpenModal] = useState<number>(0)

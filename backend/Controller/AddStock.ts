@@ -50,3 +50,49 @@ export const getStockData = async (req: Request, res: Response) => {
         res.status(500).json({ "message": "Something went wrong" })
     }
 }
+
+// Function for update the stock data
+export const updateStockData = async (req: Request, res: Response) => {
+    try {
+        const userData = await userRegisterModel.findOne({ "email": req.body.email });
+        if (userData) {
+
+            const validateStockData = validateAddStockData({ productName: req.body.productName, productQuantity: req.body.productQuantity, productPrice: req.body.productPrice });
+
+            if (validateStockData.error) {
+                res.status(400).json({ "message": validateStockData.error?.details[0].message });
+            }
+            else {
+                await addNewStock.findByIdAndUpdate(req.body.id, { "productName": req.body.productName, "productQuantity": req.body.productQuantity, "productPrice": req.body.productPrice }, { new: true }).then(() => res.status(200).json({ "message": "Data updated successfully" })).catch((err) => res.status(500).json({ "message": "Something went wrong" }));
+            }
+        }
+        else {
+            res.status(400).json({ "message": "Something went wrong" });
+        }
+    } catch (error) {
+        res.status(500).json({ "message": "Something went wrong" });
+    }
+}
+
+// Function for delete stock data
+export const removeStockData = async (req: Request, res: Response) => {
+    try {
+        const userData = await userRegisterModel.findOne({ "email": req.body.email });
+
+        if (userData) {
+            await addNewStock.findByIdAndDelete({ "_id": req.body.id }).then((data) => {
+                if (data) {
+                    res.status(200).json({ "message": "Data removed " });
+                }
+                else {
+                    res.status(400).json({ "message": "Something went wrong" });
+                }
+            }).catch((err) => res.status(500).json({ "message": "Something went wrong" }));
+        }
+        else {
+            res.status(400).json({ "message": "Something went wrong" });
+        }
+    } catch (error) {
+        res.status(500).json({ "message": "Something went wrong" });
+    }
+}

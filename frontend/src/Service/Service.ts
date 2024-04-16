@@ -49,9 +49,10 @@ export const putRequest = async (URL: string, data: string) => {
 };
 
 // Function to call delete API
-export const deleteRequest = async (URL: string) => {
+export const deleteRequest = async (URL: string, data: string) => {
     try {
         const val = await axios.delete(`${process.env.REACT_APP_API}/${URL}`, {
+            data: data,
             headers: {
                 "token": localStorage.getItem("token"),
                 "Content-Type": "application/json"
