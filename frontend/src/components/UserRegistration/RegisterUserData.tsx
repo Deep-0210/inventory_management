@@ -3,28 +3,14 @@ import address from './Address.json'
 import { CityData, RegisterUser, RootState, UserRegistration, UserSignUp } from '../../Types/Types';
 import * as yup from 'yup'
 import { useFormik } from 'formik';
-import { getRequest, postRequest } from '../../Service/Service';
-import { useDispatch, useSelector } from 'react-redux';
-import { logInUserAction } from '../../Store/Index';
+import { postRequest } from '../../Service/Service';
+import { useSelector } from 'react-redux';
 import { Button, Dialog, DialogHeader, DialogBody } from "@material-tailwind/react"
 import CheckOTP from '../CheckOTP/CheckOTP';
 
 export default function RegisterUserData({ userData, openModal, resetModalValue }: Readonly<{ userData: UserSignUp | undefined, openModal: number, resetModalValue: Function }>) {
-    // const navigate = useNavigate()
-    const dispatch = useDispatch()
 
     const logInUserData = useSelector((state: RootState) => state.value[0])
-
-    useEffect(() => {
-        getRequest("logInUserData").then((res) => {
-            if (res.Message) {
-                dispatch(logInUserAction.logInUserData(res.Message))
-            }
-        }).catch((err) => {
-            console.log(err)
-        });
-        // eslint-disable-next-line
-    }, [useSelector((state: RootState) => state.value).length === 0])
 
     // Validation from yup
     const validateUserData = yup.object({
@@ -53,7 +39,7 @@ export default function RegisterUserData({ userData, openModal, resetModalValue 
     }, [values.userCountry]);
 
     // Function to submit userData 
-    const [openCheckOTPModal, setCheckOTPModal] = useState<number>(0)
+    const [openCheckOTPModal, setOpenCheckOTPModal] = useState<number>(0)
     const [registerData, setRegisterData] = useState<UserRegistration>()
     const [button, setButton] = useState(0)
     const submitUserData = (data: RegisterUser) => {
@@ -78,7 +64,7 @@ export default function RegisterUserData({ userData, openModal, resetModalValue 
 
         postRequest("userRegistrationOTP", Data).then((res) => {
             if (res.Message.includes("OTP Generated")) {
-                setCheckOTPModal(3)
+                setOpenCheckOTPModal(3)
                 handleOpen()
             }
             else {

@@ -83,3 +83,18 @@ export interface UserRegistration {
     country: string
     city: string
 }
+
+// Interface for addStockData
+export interface UserStock {
+    productName: string
+    productQuantity: string
+    productPrice: string
+}
+
+// Interface for editStock data
+export interface EditStockData {
+    _id: string
+    productName: string
+    productQuantity: string
+    productPrice: string
+}

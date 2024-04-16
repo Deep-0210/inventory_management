@@ -1,10 +1,10 @@
 import express from 'express'
 import { registrationOTP } from "../Controller/RegistrationOTP";
 import { checkUserExist } from '../Controller/CheckUserExist';
-import { checkRegistrationOTP } from '../Controller/CheckRegistrationOTP';
+import { checkRegistrationOTP, deleteUserData, updateUserData } from '../Controller/CheckRegistrationOTP';
 import { UserLogIn } from '../Controller/UserLogIn';
 import { middleware } from '../Middleware/Middleware';
-import { addStock, getStockData } from '../Controller/AddStock';
+import { addStock, getStockData, removeStockData, updateStockData } from '../Controller/AddStock';
 import { checkForgetPasswordOTP, generateForgetPasswordOTP, updateUserPassword } from '../Controller/ForgotPassword';
 import { logInUserData } from '../Controller/LogInUserData';
 import { getVendorList } from '../Controller/VendorList';
@@ -19,11 +19,15 @@ route.put('/updateUserPassword', updateUserPassword) // api for validate new pas
 
 route.use(middleware) // function for authenticate the user for protected routs
 route.post('/checkRegistrationOTP', checkRegistrationOTP) // api for check user otp and register user data
+route.put('/updateUserData', updateUserData) // api for update user registration data
+route.delete('/deleteUserData', deleteUserData) // api for delete user data
 route.post('/userRegistrationOTP', registrationOTP) // api for create a otp for user registration
 route.post('/addStock', addStock) // api for add the stock for user
 route.get('/logInUserData', logInUserData) // api for get the logIn user data
 route.get('/getVendorList', getVendorList) // api for get the vendor list under the logIn user
 route.post('/addStock', addStock) // api for add stock for vendor
-route.get('/getStockData',getStockData) // api for get the stock data as per the user
+route.get('/getStockData', getStockData) // api for get the stock data as per the user
+route.put('/updateStockData', updateStockData) // api for the update the stock data
+route.delete('/removeStockData', removeStockData) // api for remove the stock data
 
 export default route;
