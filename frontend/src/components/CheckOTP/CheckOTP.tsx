@@ -5,6 +5,7 @@ import { useFormik } from 'formik'
 import { postRequest } from '../../Service/Service';
 import { useSelector } from 'react-redux';
 import { Button, Dialog, DialogHeader, DialogBody } from "@material-tailwind/react"
+import Message from '../TostMessage/Message';
 
 export default function CheckOTP({ openModal, registerData, resetModalValue }: { openModal: number, registerData: UserRegistration | undefined, resetModalValue: Function }) {
 
@@ -44,7 +45,6 @@ export default function CheckOTP({ openModal, registerData, resetModalValue }: {
             city: registerData?.city
         })
         postRequest("checkRegistrationOTP", Data).then((res) => {
-            // console.log(res)
             if (res.Message.includes("Wrong OTP")) {
                 setWrongOTP(1)
             }
@@ -53,9 +53,17 @@ export default function CheckOTP({ openModal, registerData, resetModalValue }: {
                 localStorage.setItem("token", res.Message)
                 handleOpen()
                 resetModalValue(0)
+                setSuccessMessage("User Created Successfully!!")
+                setTimeout(() => {
+                    setSuccessMessage('')
+                }, 5000)
             }
         }).catch((err) => {
             console.log(err)
+            setErrorMessage("Something Went Wrong!!")
+            setTimeout(() => {
+                setErrorMessage('')
+            }, 5000)
         })
     }
 
@@ -74,27 +82,36 @@ export default function CheckOTP({ openModal, registerData, resetModalValue }: {
         // eslint-disable-next-line
     }, [openModal])
 
-    return (
-        <Dialog placeholder={'mainModal'} open={open} handler={handleOpen} className='signUpCard text-white'>
-            <DialogHeader placeholder={'title'} className='text-white'>Please enter OTP</DialogHeader>
-            <DialogBody placeholder={'body'}>
-                <div className='signUpCard'>
-                    <div className='my-10 border-2 border-white w-[400px] h-max pb-5 rounded-lg mx-auto'>
-                        <form onSubmit={handleSubmit}>
-                            <div className='text-white p-3 text-lg text-center'>We sent your registration code on <span className='font-semibold text-xl'>{logInUserData?.email && logInUserData?.email}</span> </div>
-                            <div className='mt-5 px-5'>
-                                <input type="text" name="OTP" value={values.OTP} id="OTP" className='rounded-lg px-2 bg-white h-8 w-full placeholder:text-black placeholder:font-semibold text-black' placeholder='OTP' onChange={handleChange} onBlur={handleBlur} />
-                                <div className='text-red-700 font-semibold'><small>{touched.OTP && errors.OTP}</small></div>
-                                {wrongOTP === 1 ? <div className='text-red-700 font-semibold'><small>* Wrong OTP</small></div> : ""}
-                            </div>
+    const [successMessage, setSuccessMessage] = useState<string>('')
+    const [errorMessage, setErrorMessage] = useState<string>('')
 
-                            <div className='mt-5 w-max mx-auto'>
-                                <Button placeholder={'submit'} color="green" type='submit'>submit</Button>
-                            </div>
-                        </form>
+    return (
+        <>
+            <Dialog placeholder={'mainModal'} open={open} handler={handleOpen} className='signUpCard text-white'>
+                <DialogHeader placeholder={'title'} className='text-white'>Please enter OTP</DialogHeader>
+                <DialogBody placeholder={'body'}>
+                    <div className='signUpCard'>
+                        <div className='my-10 border-2 border-white w-[400px] h-max pb-5 rounded-lg mx-auto'>
+                            <form onSubmit={handleSubmit}>
+                                <div className='text-white p-3 text-lg text-center'>We sent your registration code on <span className='font-semibold text-xl'>{logInUserData?.email && logInUserData?.email}</span> </div>
+                                <div className='mt-5 px-5'>
+                                    <input type="text" name="OTP" value={values.OTP} id="OTP" className='rounded-lg px-2 bg-white h-8 w-full placeholder:text-black placeholder:font-semibold text-black' placeholder='OTP' onChange={handleChange} onBlur={handleBlur} />
+                                    <div className='text-red-700 font-semibold'><small>{touched.OTP && errors.OTP}</small></div>
+                                    {wrongOTP === 1 ? <div className='text-red-700 font-semibold'><small>* Wrong OTP</small></div> : ""}
+                                </div>
+
+                                <div className='mt-5 w-max mx-auto'>
+                                    <Button placeholder={'submit'} color="green" type='submit'>submit</Button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </DialogBody>
-        </Dialog>
+                </DialogBody>
+            </Dialog>
+
+            {(successMessage?.length > 0 || errorMessage?.length > 0) && <div>
+                <Message successMessage={successMessage} errorMessage={errorMessage} />
+            </div>}
+        </>
     )
 }

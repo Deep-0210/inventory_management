@@ -81,7 +81,7 @@ export const updateUserData = async (req: Request, res: Response) => {
                     "country": req.body.country,
                     "role": req.body.role,
                     "city": req.body.city
-                }, { new: true }).then((data) => res.status(200).json({ "message": "Data updated successfully" })).catch((err) => res.status(500).json({ "message": "Something went wrong" }));
+                }, { new: true }).then((data) => res.status(200).json({ "message": "userData updated successfully" })).catch((err) => res.status(500).json({ "message": "Something went wrong" }));
             }
         }
         else {

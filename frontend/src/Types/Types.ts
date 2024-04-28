@@ -1,3 +1,5 @@
+import React from "react"
+
 // Interface for the SignUp data type
 export interface Data {
     userEmail: string,
@@ -14,7 +16,7 @@ export interface CityData {
 // Interface for thr sign-up user data
 export interface UserSignUp {
     email: string,
-    password: string
+    password?: string
 }
 
 // Type Interface for registerUserData
@@ -23,7 +25,8 @@ export interface RegisterUser {
     lastName: string,
     vendorRole: string
     userCountry: string,
-    userCity: string
+    userCity: string,
+    email?: string
 };
 
 // Interface for userProfile data
@@ -82,6 +85,7 @@ export interface UserRegistration {
     role: string
     country: string
     city: string
+    _id?: string
 }
 
 // Interface for addStockData
@@ -97,4 +101,23 @@ export interface EditStockData {
     productName: string
     productQuantity: string
     productPrice: string
+    update: boolean
+    delete: boolean
 }
+
+// Interface for types of confirmation modal
+export interface ConfirmationModalTypes {
+    openConfirmationModal: number
+    resetConfirmationModal: Function
+    deleteEndPoint: string
+    id: string
+    title: string
+    message: string
+}
+
+// Interface for print-table
+export interface TableTypes {
+    endPoint: string,
+    reApiCall: number,
+    setData: React.Dispatch<React.SetStateAction<any>>,
+} 
