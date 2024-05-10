@@ -85,7 +85,7 @@ export const answerRequestedStock = async (req: Request, res: Response) => {
                     status: req.body.status + 'ed',
                 }
 
-                // await userRequestedStock.findByIdAndDelete(req.body.id);
+                await userRequestedStock.findByIdAndDelete(req.body.id);
                 // try {
                 const respondedData = new userRespondedStock(newData);
 
