@@ -13,7 +13,6 @@ export default function ForgotPassword() {
     // Function to print error message in toastify
     const errorMessage = (data: string) => {
         toast.error(`${data}`, {
-            className: "login-toast",
             position: 'bottom-left',
             autoClose: 3000
         });
@@ -22,7 +21,6 @@ export default function ForgotPassword() {
     // Function to print success message in toastify
     const successMessage = (data: string) => {
         toast.success(`${data}`, {
-            className: "login-toast",
             position: 'bottom-left',
             autoClose: 3000
         });

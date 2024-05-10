@@ -30,8 +30,7 @@ export default function LogIn() {
   // Function to print message in toastify
   const errorMessage = (data: string) => {
     toast.error(`${data}`, {
-      className: "login-toast",
-      //   position: toast.POSITION.BOTTOM_LEFT,
+      position: 'bottom-left',
       autoClose: 3000
     });
   };
@@ -81,7 +80,7 @@ export default function LogIn() {
     }
     else {
       localStorage.setItem("token", err.Message)
-      navigate('/user-page')
+      navigate('/request-stock')
     }
   }
 

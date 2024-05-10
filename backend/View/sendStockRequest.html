@@ -21,10 +21,9 @@
             background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(255, 209, 67, 1) 0%, rgba(255, 145, 83, 1) 90%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 20px;
+            font-size: 32px;
             font-weight: 600;
             padding: 20px;
-            font-size: 42px;
         }
 
 
@@ -81,23 +80,19 @@
         }
 
         .div2 {
-            margin-top: 10px;
+            margin-top: 20px;
             font-size: 25px;
         }
 
-        .OTPdiv {
-            padding-top: 20px;
-            font-size: 30px;
+        .requestData {
+            margin-left:50px;
+            padding-top: 30px;
+            font-size: 24px;
             font-weight: 600;
         }
-
-        .div3 {
-            padding-top: 20px;
-            font-size: 15px;
-        }
-
-        .div4 {
-            padding-top: 20px;
+        
+        .bottomLine{
+            margin-top:30px;
         }
 
         @media screen and (max-width:320px) {
@@ -120,6 +115,14 @@
             .userBlock {
                 padding-right: 10px;
                 padding-left: 80px;
+            }
+            
+            .requestData{
+                margin-left:0px;
+            }
+
+            .headingText{
+                font-size: 24px;
             }
         }
 
@@ -180,23 +183,22 @@
 
         <div class="mailText">
 
-            <div class="userName">Hello Deep Patel,</div>
+            <div class="userName">Hello Deep Patel ......</div>
 
             <div class="div2">
-                Thank you for signing up
+                Here your requested data
             </div>
 
-            <div class="div3">
-                Enter this code to confirm you account
+            <div class="requestData">
+                Product-name: Patato
+                <br>
+                Product-price: 25 $/kg
+                <br>
+                Product-quantity: 250 kg
             </div>
-
-            <div class="OTPdiv">
-                000000
-            </div>
-
-            <div class="div4">
-                Thanks for helping us keep your account secure.
-            </div>
+        </div>
+        <div class="bottomLine">
+             <hr>
         </div>
     </div>
 </body>

@@ -1,5 +1,5 @@
-export const createProfile = (otp: string, firstName: string, lastName: string) => {
-    return (`<!DOCTYPE html>
+export const SendStockResponse = (firstName: string, lastName: string, productName: string, productPrice: string, productQuantity: string, status: string) => {
+    return `<!DOCTYPE html>
     <html lang="en">
     
     <head>
@@ -22,10 +22,9 @@ export const createProfile = (otp: string, firstName: string, lastName: string) 
                 background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(255, 209, 67, 1) 0%, rgba(255, 145, 83, 1) 90%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                font-size: 20px;
+                font-size: 32px;
                 font-weight: 600;
                 padding: 20px;
-                font-size: 42px;
             }
     
     
@@ -82,23 +81,19 @@ export const createProfile = (otp: string, firstName: string, lastName: string) 
             }
     
             .div2 {
-                margin-top: 10px;
+                margin-top: 20px;
                 font-size: 25px;
             }
     
-            .OTPdiv {
-                padding-top: 20px;
-                font-size: 30px;
+            .requestData {
+                margin-left:50px;
+                padding-top: 30px;
+                font-size: 24px;
                 font-weight: 600;
             }
-    
-            .div3 {
-                padding-top: 20px;
-                font-size: 15px;
-            }
-    
-            .div4 {
-                padding-top: 20px;
+            
+            .bottomLine{
+                margin-top:30px;
             }
     
             @media screen and (max-width:320px) {
@@ -121,6 +116,14 @@ export const createProfile = (otp: string, firstName: string, lastName: string) 
                 .userBlock {
                     padding-right: 10px;
                     padding-left: 80px;
+                }
+                
+                .requestData{
+                    margin-left:0px;
+                }
+    
+                .headingText{
+                    font-size: 24px;
                 }
             }
     
@@ -174,33 +177,33 @@ export const createProfile = (otp: string, firstName: string, lastName: string) 
     
     <body>
         <div class="container">
-            <!--div for header  -->
-            <div class="headingText">Inventory Management Portal</div>
+            <div class="headingText">Inventory Management System</div>
     
             <hr>
     
             <div class="mailText">
     
-                <div class="userName">This mail is regarding ${firstName} ${lastName},</div>
+                <div class="userName">Hello ${firstName} ${lastName} ......</div>
     
                 <div class="div2">
-                    Thank you for signing up
+                    Responded Data
                 </div>
     
-                <div class="div3">
-                    Enter this code to confirm ${firstName} ${lastName}'s account
+                <div class="requestData">
+                    Product-name: ${productName}
+                    <br>
+                    Product-price: ${productPrice}
+                    <br>
+                    Product-quantity: ${productQuantity}
+                    <br>
+                    Status: ${status}
                 </div>
-    
-                <div class="OTPdiv">
-                    ${otp}
-                </div>
-    
-                <div class="div4">
-                    Thanks for helping us keep your account secure.
-                </div>
+            </div>
+            <div class="bottomLine">
+                 <hr>
             </div>
         </div>
     </body>
     
-    </html>`)
+    </html>`
 }

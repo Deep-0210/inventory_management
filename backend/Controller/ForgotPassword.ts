@@ -29,8 +29,8 @@ export const generateForgetPasswordOTP = async (req: Request, res: Response) => 
 
                 const checkExistUSer = await userOtpModel.findOne({ "email": req.body.email }).exec();
 
-                const template = ForgetOTPTemplate(OTP.toString(), data?.firstName, data?.lastName);
-                const mail = await userMail(req.body.email, template)
+                const template: string = ForgetOTPTemplate(OTP.toString(), data?.firstName, data?.lastName);
+                const mail = await userMail(req.body.email, "testuser02002@gmail.com", template, "OTP from Inventory Management")
 
                 if (mail.response) {
                     if (checkExistUSer) {
