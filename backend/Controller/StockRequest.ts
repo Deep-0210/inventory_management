@@ -76,7 +76,6 @@ export const answerRequestedStock = async (req: Request, res: Response) => {
 
             if (requestedData) {
                 const subUserData = await userRegisterModel.findOne({ "_id": requestedData?.requestedId });
-                console.log(subUserData, 'subUserData...')
                 const newData = {
                     requestedId: (requestedData?.requestedId)?.toHexString(),
                     attendantId: (requestedData?.attendantId)?.toHexString(),
@@ -86,13 +85,13 @@ export const answerRequestedStock = async (req: Request, res: Response) => {
                     status: req.body.status + 'ed',
                 }
 
-                await userRequestedStock.findByIdAndDelete(req.body.id);
+                // await userRequestedStock.findByIdAndDelete(req.body.id);
                 // try {
                 const respondedData = new userRespondedStock(newData);
 
                 const template = SendStockResponse(subUserData?.firstName as string, subUserData?.lastName as string, requestedData?.productName as string, requestedData?.productPrice as string, requestedData?.productQuantity as string, req.body.status + 'ed')
 
-                const mail = await userMail(userData?.email, template, subUserData?.email as string, `Stock response from ${userData?.firstName} ${userData?.lastName}`)
+                const mail = await userMail(subUserData?.email as string, userData?.email, template, `Stock response from ${userData?.firstName} ${userData?.lastName}`)
 
                 if (mail?.response) {
                     await respondedData.save().then(() => res.status(200).json({ "message": "Request Updated Successfully!!" })).catch((err) => res.status(500).json({ "message": err }));
