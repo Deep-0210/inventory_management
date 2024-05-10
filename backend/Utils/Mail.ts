@@ -1,10 +1,10 @@
 import nodemailer from 'nodemailer'
 
-export const userMail = async (email: string, template: any) => {
+export const userMail = async (email: string, fromEmail: string, template: any, subject: string) => {
     const transporter = nodemailer.createTransport({
-        service:"gmail",
-        port:587,
-        secure:false,
+        service: "gmail",
+        port: 587,
+        secure: false,
         auth: {
             user: `${process.env.Mail_Email}`,
             pass: `${process.env.Mail_Secret}`
@@ -12,9 +12,9 @@ export const userMail = async (email: string, template: any) => {
     });
 
     const mailOption = {
-        from: `${process.env.Mail_Email}`,
+        from: fromEmail,
         to: email,
-        subject: `${process.env.Mail_Subject}`,
+        subject: subject,
         html: template
     }
 

@@ -29,7 +29,7 @@ export const registrationOTP = async (req: Request, res: Response) => {
             const checkOTPExist = await registerOTPModel.findOne({ "email": req.body.email }).exec();
 
             const template = createProfile(OTP.toString(), req.body.firstName, req.body.lastName);
-            const mail = await userMail(req.body.email, template);
+            const mail = await userMail(req.body.email, "testuser02002@gmail.com", template, "OTP from Inventory Management");
 
             if (mail.response) {
                 if (checkOTPExist) {

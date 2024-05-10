@@ -14,7 +14,6 @@ export default function SignUp({ openModal, resetModalValue }: { openModal: numb
     // Function to print error Message
     const errorMessage = (data: string) => {
         toast.error(`${data}`, {
-            className: "login-toast",
             position: 'bottom-left',
             autoClose: 3000
         });

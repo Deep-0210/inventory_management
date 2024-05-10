@@ -141,6 +141,7 @@ export default function RegisterUserData({ userData, openModal, resetModalValue 
             }
             setValues(updateUserData)
         }
+        // eslint-disable-next-line
     }, [userData])
 
     // Function and state for open and close modal

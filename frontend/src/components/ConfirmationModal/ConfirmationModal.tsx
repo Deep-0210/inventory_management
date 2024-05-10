@@ -25,7 +25,6 @@ export default function ConfirmationModal({ openConfirmationModal, resetConfirma
     // function for perform delete operation
     const deleteUserData = () => {
         deleteRequest(deleteEndPoint, JSON.stringify({ "id": id })).then((res) => {
-            console.log(res, 'res...')
             if(res?.message){
                 setOpen(false)
                 resetConfirmationModal(1)

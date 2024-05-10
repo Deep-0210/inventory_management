@@ -55,6 +55,7 @@ export interface LogInUserData {
     updatedAt: string
     __v: number
     _id: string,
+    vendorRef: string
 }
 
 export type RootState = {
@@ -101,8 +102,7 @@ export interface EditStockData {
     productName: string
     productQuantity: string
     productPrice: string
-    update: boolean
-    delete: boolean
+    status: string
 }
 
 // Interface for types of confirmation modal
@@ -120,4 +120,15 @@ export interface TableTypes {
     endPoint: string,
     reApiCall: number,
     setData: React.Dispatch<React.SetStateAction<any>>,
-} 
+    controllers: Array<string>
+}
+
+// Interface for update stock request
+export interface StockRequest {
+    productName: string
+    productPrice: string
+    productQuantity: string
+    status: string
+    update: boolean
+    _id: string
+}
