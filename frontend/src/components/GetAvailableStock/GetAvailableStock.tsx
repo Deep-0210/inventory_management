@@ -10,7 +10,8 @@ import {
 } from '@material-tailwind/react'
 import { getRequest, postRequest, putRequest } from '../../Service/Service'
 import Message from '../TostMessage/Message'
-import { StockRequest } from '../../Types/Types'
+import { RootState, StockRequest } from '../../Types/Types'
+import { useSelector } from 'react-redux'
 
 export default function GetAvailableStock() {
   const [open, setOpen] = React.useState(false)
@@ -93,6 +94,8 @@ export default function GetAvailableStock() {
     }
     setManageRequest(manageRequest)
   }, [manageRequest])
+
+  const logInUserData = useSelector((state: RootState) => state.value[0])
 
   return (
     <div
@@ -203,7 +206,7 @@ export default function GetAvailableStock() {
 
       <Message successMessage={successMessage} errorMessage={errorMessage} />
 
-      <div className="mt-20">
+      {logInUserData?.role !== "vendor" && <div className="mt-20">
         <div className="my-4 text-xl font-semibold">Requested Stock Data: </div>
         <PrintTable
           endPoint="getPendingStockRequestedData"
@@ -211,10 +214,10 @@ export default function GetAvailableStock() {
           setData={setManageRequest}
           controllers={['Accept', 'Reject']}
         />
-      </div>
+      </div>}
 
 
-      <div className="mt-20">
+      {logInUserData?.role !== "vendor" && <div className="mt-20">
         <div className="my-4 text-xl font-semibold">Responded Stock Data: </div>
         <PrintTable
           endPoint="getRespondedStockRequestedData"
@@ -222,7 +225,17 @@ export default function GetAvailableStock() {
           setData={setManageRequest}
           controllers={[]}
         />
-      </div>
+      </div>}
+
+      {(logInUserData?.role === "vendor" || logInUserData?.role === "adminVendor") && <div className="mt-20">
+        <div className="my-4 text-xl font-semibold">All Results: </div>
+        <PrintTable
+          endPoint="vendorAllRequestData"
+          reApiCall={reApiCall}
+          setData={setManageRequest}
+          controllers={[]}
+        />
+      </div>}
     </div>
   )
 }
