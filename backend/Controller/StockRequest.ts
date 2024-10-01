@@ -152,3 +152,18 @@ export const getRespondedStockRequestedData = async (req: Request, res: Response
         res.status(500).json({ "message": "Something Went Wrong" });
     }
 };
+
+// api for get all requested data either accepted and rejected
+export const vendorAllRequestData = async (req: Request, res: Response) => {
+    try {
+        const userData = await userRegisterModel.findOne({ "email": req.body.email });
+        if (userData) {
+            const pendingRequestedData = await userRespondedStock.find({ "requestedId": userData?._id }).select({ createdAt: 0, updatedAt: 0, __v: 0, requestedId: 0, attendantId: 0 });
+            const acceptRequestedData = await userRequestedStock.find({ "requestedId": userData?._id }).select({ createdAt: 0, updatedAt: 0, __v: 0, requestedId: 0, attendantId: 0 });
+
+            res.status(200).json({ "message": [...pendingRequestedData, ...acceptRequestedData] })
+        }
+    } catch (error) {
+        res.status(500).json({ "Message": "Something Went Wrong" });
+    }
+};

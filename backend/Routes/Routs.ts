@@ -8,7 +8,7 @@ import { addStock, getStockData, removeStockData, updateStockData } from '../Con
 import { checkForgetPasswordOTP, generateForgetPasswordOTP, updateUserPassword } from '../Controller/ForgotPassword';
 import { logInUserData } from '../Controller/LogInUserData';
 import { deleteUserData, getVendorList, updateUserData } from '../Controller/VendorList';
-import { answerRequestedStock, getPendingStockRequestedData, getRespondedStockRequestedData, getUserStock, sendRequestMail } from '../Controller/StockRequest';
+import { answerRequestedStock, getPendingStockRequestedData, getRespondedStockRequestedData, getUserStock, sendRequestMail, vendorAllRequestData } from '../Controller/StockRequest';
 
 const route = express.Router();
 
@@ -35,5 +35,6 @@ route.post('/sendRequestMail', sendRequestMail) // api for send the request mail
 route.put('/answerRequestedStock', answerRequestedStock) // api for update the requested stock
 route.get('/getPendingStockRequestedData', getPendingStockRequestedData) // api for get the requested data
 route.get('/getRespondedStockRequestedData', getRespondedStockRequestedData)
+route.get('/vendorAllRequestData', vendorAllRequestData)
 
 export default route;

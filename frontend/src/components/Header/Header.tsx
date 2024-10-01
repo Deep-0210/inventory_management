@@ -86,15 +86,15 @@ const Header = () => {
             <Link to="/request-stock">Request Stock </Link>
           </div>
 
-          <div className="text-xl px-3 cursor-pointer">
+          {(logInUserData?.role === "superVendor" || logInUserData?.role === "adminVendor") && <div className="text-xl px-3 cursor-pointer">
             <Link to="/add-stock">Add Stock</Link>
-          </div>
+          </div>}
           {(logInUserData?.role.includes('superVendor') ||
             logInUserData?.role.includes('adminVendor')) && (
-            <div className="text-xl px-3 cursor-pointer">
-              <Link to="/vendor-list">Vendor List</Link>
-            </div>
-          )}
+              <div className="text-xl px-3 cursor-pointer">
+                <Link to="/vendor-list">Vendor List</Link>
+              </div>
+            )}
         </div>
 
         <div className="flex">
@@ -119,16 +119,16 @@ const Header = () => {
 
           {(logInUserData?.role.includes('superVendor') ||
             logInUserData?.role.includes('adminVendor')) && (
-            <div className="px-2">
-              <Button
-                placeholder={'sign-up'}
-                color="green"
-                onClick={() => openSignUpModal()}
-              >
-                Create-user
-              </Button>
-            </div>
-          )}
+              <div className="px-2">
+                <Button
+                  placeholder={'sign-up'}
+                  color="green"
+                  onClick={() => openSignUpModal()}
+                >
+                  Create-user
+                </Button>
+              </div>
+            )}
         </div>
       </div>
       <SignUp openModal={openModal} resetModalValue={resetModalValue} />
