@@ -8,3 +8,5 @@ const userSignUp = new mongoose.Schema({
 );
 
 export const userSignUpModel = mongoose.model('signupUser', userSignUp)
+
+userSignUpModel.createIndexes().then(() => console.log("userSignUpModel index created successfully")).catch((err) => console.log(`Index creation fail: ${err}`))

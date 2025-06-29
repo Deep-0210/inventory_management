@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node ./dist/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+    "dev": "tsc-watch --onSuccess \"nodemon -q dist/index.js\""
   },
   "keywords": [],
   "author": "",
@@ -17,10 +17,12 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
+    "express-rate-limit": "^7.5.1",
     "joi": "^17.12.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.1",
-    "nodemailer": "^6.9.12"
+    "nodemailer": "^6.9.12",
+    "tsc-watch": "^7.1.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
