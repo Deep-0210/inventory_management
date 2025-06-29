@@ -22,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.1",
     "nodemailer": "^6.9.12",
+    "redis": "^5.5.6",
     "tsc-watch": "^7.1.1"
   },
   "devDependencies": {
