@@ -4,10 +4,19 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { validateSignUpUser } from "../Validation/ValidateCheckUserExist";
+import redisClient from '../redisClient';
 dotenv.config()
 
 export const UserLogIn = async (req: Request, res: Response) => {
+    console.log(req.body)
     try {
+
+        const cachedUser = await redisClient.get(`user:${req.body.email}`);
+
+        if (cachedUser) {
+            return res.status(200).json({ Message: 'Cached Token', Token: cachedUser });
+        }
+
         const userData = await userSignUpModel.findOne({ "email": req.body.email }).exec();
 
         if (userData) {
@@ -22,6 +31,7 @@ export const UserLogIn = async (req: Request, res: Response) => {
 
                 if (validatePassword) {
                     const token = await jwt.sign({ "email": userData.email }, `${process.env.JWT_SECRETE_KEY}`);
+                    await redisClient.setEx(`user:${req.body.email}`, 60, token);
                     res.status(200).json({ "Message": token });
                 }
                 else {
