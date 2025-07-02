@@ -1,10 +1,12 @@
 import { Request, Response } from 'express'
-import { userRegisterModel } from '../Models/RegisterUser';
+import { userRegisterModel } from '../Models/user.model';
 import { validateSignUpUser } from '../Validation/ValidateCheckUserExist';
 
 export const checkUserExist = async (req: Request, res: Response) => {
+    console.log(req.body, typeof req.body)
     try {
         const checkUser = await userRegisterModel.findOne({ "email": req.body.email }).exec();
+
 
         if (checkUser) {
             res.status(200).json({ "Message": "User Already Exist" });

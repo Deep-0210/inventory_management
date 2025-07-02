@@ -1,4 +1,4 @@
-import { userRegisterModel } from "../Models/RegisterUser";
+import { userRegisterModel } from "../Models/user.model";
 import { Request, Response } from 'express';
 
 // Function to get logIn user data

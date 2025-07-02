@@ -1,0 +1,1 @@
+From models remove RegisterOTP and respondedStock models

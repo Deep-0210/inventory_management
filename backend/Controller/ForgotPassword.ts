@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { validateEmail, validateSignUpUser } from "../Validation/ValidateCheckUserExist";
-import { userSignUpModel } from "../Models/UserSignup";
-import { userRegisterModel } from "../Models/RegisterUser";
-import { userOtpModel } from "../Models/ForgotPasswordOTP";
+import { userSignUpModel } from "../Models/credentials.model";
+import { userRegisterModel } from "../Models/user.model";
+import { userOtpModel } from "../Models/otp.model";
 import { ForgetOTPTemplate } from "../View/ForgetOTP";
 import { userMail } from "../Utils/Mail";
 import bcrypt from 'bcrypt'

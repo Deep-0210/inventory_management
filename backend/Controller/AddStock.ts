@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import { userRegisterModel } from "../Models/RegisterUser";
-import { addNewStock } from "../Models/AddStock";
+import { userRegisterModel } from "../Models/user.model";
+import { addNewStock } from "../Models/stock.model";
 import { validateAddStockData } from "../Validation/ValidateNewStockData";
+import { responseData } from "../Utils/responseHandler";
 
 // Function for the addStock
 export const addStock = async (req: Request, res: Response) => {
@@ -9,17 +10,20 @@ export const addStock = async (req: Request, res: Response) => {
         const userData = await userRegisterModel.findOne({ "email": req.body.email });
 
         if (userData?._id) {
+
+            const { productName, productQuantity, productPrice } = req.body;
+
             const newStock = {
                 vendorId: userData?._id,
-                productName: req.body.productName,
-                productQuantity: req.body.productQuantity,
-                productPrice: req.body.productPrice
+                productName: productName,
+                productQuantity: productQuantity,
+                productPrice: productPrice
             };
 
-            const validateStockData = validateAddStockData({ productName: req.body.productName, productQuantity: req.body.productQuantity, productPrice: req.body.productPrice });
+            const validateStockData = validateAddStockData({ productName: productName, productQuantity: productQuantity, productPrice: productPrice });
 
             if (validateStockData.error) {
-                res.status(400).json({ "message": validateStockData?.error?.details[0]?.message });
+                return responseData(res, 400, validateStockData?.error?.details[0]?.message);
             }
             else {
                 const saveStockData = new addNewStock(newStock);

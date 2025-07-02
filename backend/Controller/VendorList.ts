@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { userRegisterModel } from "../Models/RegisterUser";
+import { userRegisterModel } from "../Models/user.model";
 import { validateRegisterUser } from "../Validation/ValidateUserRegisterData";
-import { userSignUpModel } from "../Models/UserSignup";
+import { userSignUpModel } from "../Models/credentials.model";
 
 export const getVendorList = async (req: Request, res: Response) => {
     try {

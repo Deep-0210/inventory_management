@@ -2,13 +2,12 @@ import nodemailer from 'nodemailer'
 
 export const userMail = async (email: string, fromEmail: string, template: any, subject: string) => {
     const transporter = nodemailer.createTransport({
-        // service: "gmail",
-        host:"mail.mailtest.radixweb.net",
-        port: 465,
-        secure: true,
+        service: "gmail",
+        port: 587,
+        secure: false,
         auth: {
-            user: `testdotnet@mailtest.radixweb.net`,
-            pass: `Radix@web#8`
+            user: `${process.env.Mail_Email}`,
+            pass: `${process.env.Mail_Secret}`
         }
     });
 
