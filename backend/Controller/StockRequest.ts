@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { userRegisterModel } from "../Models/RegisterUser";
-import { addNewStock } from "../Models/AddStock";
+import { userRegisterModel } from "../Models/user.model";
+import { addNewStock } from "../Models/stock.model";
 import { userMail } from "../Utils/Mail";
 import { SendStockRequest } from "../View/sendStockRequest";
-import { userRequestedStock } from "../Models/requestedStock";
+import { userRequestedStock } from "../Models/stockRequest.model";
 import { userRespondedStock } from "../Models/respondedStock";
 import { SendStockResponse } from "../View/sendStockResponse";
 

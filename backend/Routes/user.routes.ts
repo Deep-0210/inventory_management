@@ -6,7 +6,7 @@ import { checkRegistrationOTP } from '../Controller/CheckRegistrationOTP';
 import { deleteUserData, updateUserData } from '../Controller/VendorList';
 import { registrationOTP } from '../Controller/RegistrationOTP';
 import { logInUserData } from '../Controller/LogInUserData';
-import { middleware } from '../Middleware/Middleware';
+import { middleware } from '../Middleware/auth.middleware';
 
 const userRoutes = express.Router();
 

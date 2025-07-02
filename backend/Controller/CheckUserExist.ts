@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { userRegisterModel } from '../Models/RegisterUser';
+import { userRegisterModel } from '../Models/user.model';
 import { validateSignUpUser } from '../Validation/ValidateCheckUserExist';
 
 export const checkUserExist = async (req: Request, res: Response) => {

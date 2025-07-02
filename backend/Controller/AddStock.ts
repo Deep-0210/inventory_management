@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { userRegisterModel } from "../Models/RegisterUser";
-import { addNewStock } from "../Models/AddStock";
+import { userRegisterModel } from "../Models/user.model";
+import { addNewStock } from "../Models/stock.model";
 import { validateAddStockData } from "../Validation/ValidateNewStockData";
 import { responseData } from "../Utils/responseHandler";
 

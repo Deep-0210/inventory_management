@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { userSignUpModel } from "../Models/UserSignup";
+import { userSignUpModel } from "../Models/credentials.model";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'

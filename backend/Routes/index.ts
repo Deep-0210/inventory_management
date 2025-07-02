@@ -1,5 +1,5 @@
 import express from 'express'
-import { middleware } from '../Middleware/Middleware';
+import { middleware } from '../Middleware/auth.middleware';
 import vendorRoutes from './vendor.routes';
 import stokeRoutes from './stoke.routes';
 import userRoutes from './user.routes';
