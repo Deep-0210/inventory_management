@@ -35,7 +35,7 @@ export default function CheckOTP({ openModal, registerData, resetModalValue }: {
     const [wrongOTP, setWrongOTP] = useState(0)
     const submitUserData = (data: OTPCheck) => {
         const Data = JSON.stringify({
-            OTP: data.OTP,
+            otp: data.OTP,
             userEmail: registerData?.email,
             password: registerData?.password,
             firstName: registerData?.firstName,

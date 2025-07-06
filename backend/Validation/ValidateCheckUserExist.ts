@@ -1,6 +1,6 @@
 import joi from 'joi'
 
-export const validateSignUpUser = (data: object) => {
+export const validateUserCredentials = (data: object) => {
     const validateData = joi.object({
         email: joi.string().email().required(),
         password: joi.string().min(6).required().pattern(/[0-9]/).pattern(/[a-z]/).pattern(/[A-Z]/).pattern(/[^\w]/)
