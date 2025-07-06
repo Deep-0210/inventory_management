@@ -22,12 +22,13 @@ const Header = () => {
   const dispatch = useDispatch()
 
   const logInUserData = useSelector((state: RootState) => state.value[0])
+  console.log({ logInUserData })
 
   const getLogInUserData = () => {
-    getRequest('logInUserData')
+    getRequest('user/logInUserData')
       .then(res => {
-        if (res.Message) {
-          dispatch(logInUserAction.logInUserData(res.Message))
+        if (res.data) {
+          dispatch(logInUserAction.logInUserData(res.data))
         }
       })
       .catch(err => {

@@ -7,7 +7,8 @@ const userRegister = new mongoose.Schema({
     lastName: { type: String, required: true },
     country: { type: String, required: true },
     city: { type: String, required: true },
-    role: { type: String, required: true, enum: ['superVendor', 'adminVendor', 'vendor'] }
+    role: { type: String, required: true, enum: ['superVendor', 'adminVendor', 'vendor'] },
+    password: { type: String, required: true }
 },
     { timestamps: true }
 );

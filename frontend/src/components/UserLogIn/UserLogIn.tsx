@@ -63,7 +63,7 @@ export default function LogIn() {
       password: values.userPassword
     });
 
-    postRequest("userLogIn", data).then((res) => {
+    postRequest("user/userLogIn", data).then((res) => {
       responseMessage(res)
     }).catch((err) => {
       errorMessage("Something went Wrong")
@@ -72,15 +72,16 @@ export default function LogIn() {
 
   // Function to print error message
   const responseMessage = (err: any) => {
-    if (err.Message.includes("Please check your email or password")) {
+    console.log({ err })
+    if (err.data) {
+      localStorage.setItem("token", err.data)
+      navigate('/request-stock')
+    }
+    else if (err.Message.includes("Please check your email or password")) {
       errorMessage("Invalid Credentials")
     }
     else if (err.Message.includes("User Not Found")) {
       errorMessage("User Not Found")
-    }
-    else {
-      localStorage.setItem("token", err.Message)
-      navigate('/request-stock')
     }
   }
 

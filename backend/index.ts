@@ -7,6 +7,8 @@ import os from 'node:os';
 import cluster from 'node:cluster';
 import rateLimit from 'express-rate-limit';
 import { connectDb } from './db';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger-output.json';
 
 dotenv.config();
 
@@ -34,8 +36,9 @@ import('./redisClient').then(async ({ default: redisClient }) => {
     await redisClient.connect();
 
     const app = express();
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     app.use(express.json());
-    app.use(cors());
+    app.use(cors({ origin: "*" }));
     app.use(globalLimiter);
     app.use('/', route);
 

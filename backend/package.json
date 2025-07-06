@@ -23,6 +23,7 @@
     "mongoose": "^8.2.1",
     "nodemailer": "^6.9.12",
     "redis": "^5.5.6",
+    "swagger-ui-express": "^5.0.1",
     "tsc-watch": "^7.1.1"
   },
   "devDependencies": {
@@ -32,6 +33,9 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.11.25",
     "@types/nodemailer": "^6.4.14",
+    "@types/swagger-ui-express": "^4.1.8",
+    "eslint": "^9.30.1",
+    "swagger-autogen": "^2.23.7",
     "typescript": "^5.4.2"
   }
 }
