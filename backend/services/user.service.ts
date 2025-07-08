@@ -5,7 +5,7 @@ import { validateEmail, validateUserCredentials } from "../Validation/ValidateCh
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { ForgetOTPTemplate } from "../View/ForgetOTP";
-import { userMail } from "../Utils/Mail";
+import { userMail } from "../services/mail.service";
 import { validateRegisterUser } from "../Validation/ValidateUserRegisterData";
 import { OtpType, UserCredentialsType, UserDataType, UserRegisterOtpType, UserServiceType } from "../types/user.types";
 import { createProfile } from "../View/CreateProfile";

@@ -6,7 +6,7 @@ import route from './Routes';
 import os from 'node:os';
 import cluster from 'node:cluster';
 import rateLimit from 'express-rate-limit';
-import { connectDb } from './db';
+import { connectDb } from './db/db.connect';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger-output.json';
 
