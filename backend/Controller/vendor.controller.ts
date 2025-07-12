@@ -9,7 +9,7 @@ export const childVendorList = async (req: Request, res: Response) => {
         const childVendorList = await childVendorListService(email);
         return responseData(res, childVendorList.status, childVendorList.message, childVendorList.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }
 
@@ -19,7 +19,7 @@ export const sendStockRequestMail = async (req: Request, res: Response) => {
         const isMailSent = await sendStockRequestMailService({ productName, productPrice, productQuantity, email });
         return responseData(res, isMailSent.status, isMailSent.message, isMailSent.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }
 
@@ -29,6 +29,6 @@ export const vendorRequestedData = async (req: Request, res: Response) => {
         const allStockData = await vendorRequestedDataService(email);
         return responseData(res, allStockData.status, allStockData.message, allStockData.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }

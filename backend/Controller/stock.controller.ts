@@ -8,7 +8,7 @@ export const getStockData = async (req: Request, res: Response) => {
         const stockData = await getStockService(email);
         return responseData(res, stockData.status, stockData.message, stockData.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }
 
@@ -18,7 +18,7 @@ export const getAdminStock = async (req: Request, res: Response) => {
         const adminStock = await getAdminStockService(email);
         return responseData(res, adminStock.status, adminStock.message, adminStock.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }
 
@@ -29,7 +29,7 @@ export const getPendingStockRequestedData = async (req: Request, res: Response) 
 
         return responseData(res, pendingStockData.status, pendingStockData.message, pendingStockData.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }
 
@@ -39,7 +39,7 @@ export const getRespondedStockRequestedData = async (req: Request, res: Response
         const respondedData = await getRespondedStockRequestedDataService(email);
         return responseData(res, respondedData.status, respondedData.message, respondedData.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }
 
@@ -49,7 +49,7 @@ export const addStock = async (req: Request, res: Response) => {
         const newStock = await addStockService({ productName, productQuantity, productPrice, email });
         return responseData(res, newStock.status, newStock.message, newStock.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }
 
@@ -59,7 +59,7 @@ export const updateStock = async (req: Request, res: Response) => {
         const updatedStock = await updateStockService({ productName, productQuantity, productPrice, email, id });
         return responseData(res, updatedStock.status, updatedStock.message, updatedStock.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }
 
@@ -69,7 +69,7 @@ export const respondRequestedStock = async (req: Request, res: Response) => {
         const respondedStock = await respondRequestedStockService({ email, id, status });
         return responseData(res, respondedStock.status, respondedStock.message, respondedStock.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }
 
@@ -79,6 +79,6 @@ export const removeStockData = async (req: Request, res: Response) => {
         const deletedStock = await removeStockDataService({ email, id });
         return responseData(res, deletedStock.status, deletedStock.message, deletedStock.data);
     } catch (error) {
-        serverErrorMessage(res);
+        serverErrorMessage(res, { error });
     }
 }

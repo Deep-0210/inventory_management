@@ -33,7 +33,7 @@ export const checkUserExistService = async (email: string): Promise<UserServiceT
 
 export const userLoginService = async ({ email, password }: UserCredentialsType): Promise<UserServiceType> => {
     try {
-        const validateCredentials = await validateUserCredentials({ email, password });
+        const validateCredentials = validateUserCredentials({ email, password });
 
         if (validateCredentials.error) {
             return { status: 400, message: validateCredentials.error.details[0].message, data: null };
@@ -45,7 +45,7 @@ export const userLoginService = async ({ email, password }: UserCredentialsType)
             const validatePassword = await bcrypt.compare(password, userData.password);
 
             if (validatePassword) {
-                const token = await jwt.sign({ "email": userData.email }, `${process.env.JWT_SECRETE_KEY}`, { expiresIn: "10h" });
+                const token = jwt.sign({ "email": userData.email }, `${process.env.JWT_SECRETE_KEY}`, { expiresIn: "10h" });
                 await redisClient.setEx(`user:${email}`, 60, token);
                 return { status: 200, message: "LogIn successful", data: token };
             }
@@ -56,13 +56,13 @@ export const userLoginService = async ({ email, password }: UserCredentialsType)
 
         return { status: 404, message: "User Not Found", data: null };
     } catch (error) {
-        return { status: 500, message: "Internal Server Error", data: null };
+        return { status: 500, message: "Internal Server Error", data: error };
     }
 }
 
 export const generateForgetPasswordOtpService = async (email: string): Promise<UserServiceType> => {
     try {
-        const validateData = await validateEmail({ email: email });
+        const validateData = validateEmail({ email: email });
 
         if (validateData.error) {
             return { status: 400, message: validateData.error.details[0].message, data: null }
@@ -108,13 +108,13 @@ export const checkForgetPasswordOtpService = async ({ email, otp }: OtpType): Pr
 
         return { status: 200, message: isOtpValid ? "Correct OTP" : "Wrong Otp", data: null };
     } catch (error) {
-        return { status: 500, message: "Internal Server Error", data: null };
+        return { status: 500, message: "Internal Server Error", data: error };
     }
 }
 
 export const updateUserPasswordService = async ({ email, password, otp }: UserCredentialsType & { otp: string }): Promise<UserServiceType> => {
     try {
-        const validateUser = await validateUserCredentials({ email, password });
+        const validateUser = validateUserCredentials({ email, password });
         if (validateUser.error) {
             return { status: 400, message: validateUser.error.details[0].message, data: null };
         }
@@ -140,7 +140,7 @@ export const updateUserPasswordService = async ({ email, password, otp }: UserCr
         await userRegisterModel.findOneAndUpdate(isUserExist._id, { password: newPassword }, { new: true });
         return { status: 200, message: "Password Updated Successfully", data: null };
     } catch (error) {
-        return { status: 500, message: "Internal Server Error", data: null };
+        return { status: 500, message: "Internal Server Error", data: error };
     }
 };
 
@@ -154,13 +154,13 @@ export const getLoginUserDataService = async (email: string): Promise<UserServic
 
         return { status: 200, message: "User Data", data: userData };
     } catch (error) {
-        return { status: 500, message: "Internal Server Error", data: null };
+        return { status: 500, message: "Internal Server Error", data: error };
     }
 };
 
 export const registrationOtpService = async ({ email, firstName, lastName, country, role, city }: UserDataType): Promise<UserServiceType> => {
     try {
-        const isUserDataValid = await validateRegisterUser({ email, firstName, lastName, country, role, city });
+        const isUserDataValid = validateRegisterUser({ email, firstName, lastName, country, role, city });
 
         if (isUserDataValid.error) {
             return { status: 400, message: isUserDataValid.error.details?.[0].message, data: null };
@@ -185,13 +185,13 @@ export const registrationOtpService = async ({ email, firstName, lastName, count
 
         return { status: 200, message: "OTP Generated", data: null };
     } catch (error) {
-        return { status: 500, message: "Internal Server Error", data: null };
+        return { status: 500, message: "Internal Server Error", data: error };
     }
 };
 
 export const checkRegistrationOtpService = async ({ email, firstName, lastName, country, role, city, otp, password, userEmail }: UserRegisterOtpType): Promise<UserServiceType> => {
     try {
-        const isUserDataValid = await validateRegisterUser({ email, firstName, lastName, country, role, city });
+        const isUserDataValid = validateRegisterUser({ email, firstName, lastName, country, role, city });
 
         if (isUserDataValid.error) {
             return { status: 400, message: isUserDataValid.error.details?.[0].message, data: null };
@@ -238,13 +238,13 @@ export const checkRegistrationOtpService = async ({ email, firstName, lastName, 
         const token = jwt.sign({ "email": email }, `${process.env.JWT_SECRETE_KEY}`, { expiresIn: '10 hr' });
         return { status: 200, message: "User created successfully", data: token };
     } catch (error) {
-        return { status: 500, message: "Internal Server Error", data: null };
+        return { status: 500, message: "Internal Server Error", data: error };
     }
 };
 
 export const updateUserDataService = async ({ email, firstName, lastName, country, role, city }: UserDataType): Promise<UserServiceType> => {
     try {
-        const validateUserData = await validateRegisterUser({ email, firstName, lastName, country, role, city });
+        const validateUserData = validateRegisterUser({ email, firstName, lastName, country, role, city });
 
         if (validateUserData.error) {
             return { status: 400, message: validateUserData.error.details[0].message, data: null };
@@ -256,7 +256,7 @@ export const updateUserDataService = async ({ email, firstName, lastName, countr
             return { status: 404, message: "User not found", data: null };
         }
 
-        const newRole = !userData.vendorRef || userData.vendorRef.toString() === userData._id.toString() ? true : false;
+        const newRole = !userData.vendorRef || userData.vendorRef.toString() === userData._id.toString();
 
         const updatedUserData = await userRegisterModel.findByIdAndUpdate(userData._id,
             { email, firstName, lastName, country, role: newRole ? role : userData.role, city }, { new: true });

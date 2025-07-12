@@ -8,4 +8,4 @@ const userOTP = new mongoose.Schema({
     { timestamps: true }
 );
 
-export const otpModel = mongoose.model('forgetOTP', userOTP);
+export const otpModel = mongoose.model('otp', userOTP);

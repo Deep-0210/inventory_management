@@ -36,7 +36,7 @@ export const sendStockRequestMailService = async ({ productName, productPrice, p
 
         const template = SendStockRequest(requestVendorData?.firstName, requestVendorData?.lastName, productName, productPrice, productQuantity);
 
-        const mail = await userMail(requestVendorData?.email as string, userData?.email, template, `Stock request from ${userData?.firstName} ${userData?.lastName}`);
+        const mail = await userMail(requestVendorData?.email, userData?.email, template, `Stock request from ${userData?.firstName} ${userData?.lastName}`);
 
         if (!mail.response) {
             return { status: 500, message: "Fail to send the mail", data: null }
