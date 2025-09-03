@@ -1,4 +1,4 @@
-name: Frontend Lint & Type Check
+name: Lint & Type Check
 
 on:
   push:
