@@ -4,6 +4,6 @@ export const responseData = (res: Response, statusCode: number, message: string,
     return res.status(statusCode).json({ message, data });
 }
 
-export const serverErrorMessage = (res: Response) => {
-    return res.status(500).json({ message: "Internal Server Error" });
+export const serverErrorMessage = (res: Response, error: Object) => {
+    return res.status(500).json({ message: "Internal Server Error", error });
 }
