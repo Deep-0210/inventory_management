@@ -2,11 +2,19 @@ name: Lint & Type Check
 
 on:
   push:
+    paths:
+      - "frontend/**"
   pull_request:
+    paths:
+      - "frontend/**"
 
 jobs:
   lint-and-typecheck:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend # Run everything inside frontend/
 
     steps:
       - name: Checkout repository
