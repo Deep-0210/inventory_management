@@ -22,7 +22,6 @@ const AddStock = () => {
         if (token === "") {
             navigate("/");
         }
-        //eslint-disable-next-line
     }, []);
 
     // validation schema for validate add schema data
@@ -51,7 +50,7 @@ const AddStock = () => {
     const [reApiCall, setReApiCall] = useState<number>(0);
     const submitAddStock = (value: UserStock) => {
         postRequest("addStock", JSON.stringify(value))
-            .then((res) => {
+            .then(() => {
                 setReApiCall(1);
                 resetForm();
                 setSuccessMessage("Stock Added Successfully!!");
@@ -81,7 +80,7 @@ const AddStock = () => {
         if (data?.productName !== "" && data?.status === "edit") {
             setValues(data);
         }
-        // eslint-disable-next-line
+
     }, [data]);
 
     // Function for update stock data
@@ -92,7 +91,7 @@ const AddStock = () => {
         };
 
         putRequest("updateStockData", JSON.stringify(stockData))
-            .then((res) => {
+            .then(() => {
                 resetForm();
                 setReApiCall(1);
                 setData({
@@ -121,13 +120,13 @@ const AddStock = () => {
     useEffect(() => {
         setHeight(window.innerHeight);
         setWidth(window.innerWidth);
-        // eslint-disable-next-line
+
     }, [window.innerHeight, window.innerWidth]);
 
     const [id, setId] = useState<string>("");
     // function to reset confirmation modal value
     const [openConfirmationModal, setOpenConfirmationModal] = useState<number>(0);
-    const resetConfirmationModal = (e: number) => {
+    const resetConfirmationModal = (e: number | string) => {
         if (e === 1) {
             setReApiCall(1);
             setSuccessMessage("Stock Deleted Successfully!!");

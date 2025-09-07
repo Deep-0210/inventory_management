@@ -39,7 +39,7 @@ const Header = () => {
   // useEffect to get logIn user data and store in store
   useEffect(() => {
     getLogInUserData()
-    // eslint-disable-next-line
+
   }, [])
 
   // Function to set value for open modal
@@ -57,7 +57,7 @@ const Header = () => {
   const [errorMessage, setErrorMessage] = useState<string>('')
 
   // Function to reset open modal value and send the success message
-  const resetModalValue = (e: string) => {
+  const resetModalValue = (e: string | number) => {
     if (e === 'updated') {
       setSuccessMessage('Data Updated Successfully!!')
       getLogInUserData()

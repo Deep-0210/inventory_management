@@ -8,7 +8,7 @@ import {
   DialogBody,
   DialogFooter
 } from '@material-tailwind/react'
-import { getRequest, postRequest, putRequest } from '../../Service/Service'
+import { postRequest, putRequest } from '../../Service/Service'
 import Message from '../TostMessage/Message'
 import { RootState, StockRequest } from '../../Types/Types'
 import { useSelector } from 'react-redux'
@@ -23,13 +23,14 @@ export default function GetAvailableStock() {
   useEffect(() => {
     setHeight(window.innerHeight)
     setWidth(window.innerWidth)
-    // eslint-disable-next-line
+
   }, [window.innerHeight, window.innerWidth])
 
   const [data, setData] = useState({
     productName: '',
     productQuantity: '',
-    productPrice: ''
+    productPrice: '',
+    status: ""
   })
 
   // useEffect for set stock data in modal

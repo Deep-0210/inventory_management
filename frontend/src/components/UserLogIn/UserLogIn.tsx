@@ -65,13 +65,13 @@ export default function LogIn() {
 
     postRequest("user/userLogIn", data).then((res) => {
       responseMessage(res)
-    }).catch((err) => {
+    }).catch(() => {
       errorMessage("Something went Wrong")
     });
   }
 
   // Function to print error message
-  const responseMessage = (err: any) => {
+  const responseMessage = (err: { data: string, Message: string }) => {
     console.log({ err })
     if (err.data) {
       localStorage.setItem("token", err.data)
@@ -91,7 +91,7 @@ export default function LogIn() {
   useEffect(() => {
     setHeight(window.innerHeight)
     setWidth(window.innerWidth)
-    // eslint-disable-next-line
+
   }, [window.innerHeight, window.innerWidth])
 
   return (

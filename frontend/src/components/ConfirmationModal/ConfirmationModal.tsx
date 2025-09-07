@@ -13,7 +13,7 @@ export default function ConfirmationModal({ openConfirmationModal, resetConfirma
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(!open);
-        resetConfirmationModal()
+        resetConfirmationModal(0)
     }
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function ConfirmationModal({ openConfirmationModal, resetConfirma
     // function for perform delete operation
     const deleteUserData = () => {
         deleteRequest(deleteEndPoint, JSON.stringify({ "id": id })).then((res) => {
-            if(res?.message){
+            if (res?.message) {
                 setOpen(false)
                 resetConfirmationModal(1)
             }

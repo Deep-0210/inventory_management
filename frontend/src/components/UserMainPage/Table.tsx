@@ -10,40 +10,40 @@ import {
 } from '@mui/material'
 import { Spinner, Button } from '@material-tailwind/react'
 import { getRequest } from '../../Service/Service'
-import { TableTypes } from '../../Types/Types'
+import { TableTypes, VendorData } from '../../Types/Types'
 import { useNavigate } from 'react-router-dom'
 
-const PrintTable = ({
+const PrintTable = <T,>({
   endPoint,
   reApiCall,
   setData,
   controllers
-}: TableTypes) => {
+}: TableTypes<T>) => {
   const navigate = useNavigate()
 
   useEffect(() => {
     if (!localStorage.getItem('token')) {
       navigate('/')
     }
-    // eslint-disable-next-line
+
   }, [])
 
   useEffect(() => {
     if (endPoint.length) {
       getTableData()
     }
-    // eslint-disable-next-line
+
   }, [endPoint.length > 0])
 
   useEffect(() => {
     if (reApiCall === 1) {
       getTableData()
     }
-    // eslint-disable-next-line
+
   }, [reApiCall])
 
   const [spinner, setSpinner] = useState<number>(0)
-  const [tableData, setTableData] = useState<Array<any>>([])
+  const [tableData, setTableData] = useState<Array<VendorData>>([])
   const [noData, setNoData] = useState<number>(0)
 
   const getTableData = () => {
@@ -106,7 +106,9 @@ const PrintTable = ({
     const id = (e.target as HTMLButtonElement)?.id
     const data = tableData.find(e => e._id === id)
     const value = (e.target as HTMLButtonElement)?.value
-    setData({ ...data, status: value })
+    if (data) {
+      setData({ ...data, status: value } as T);
+    }
   }
 
   // Function to get the data for edit
@@ -114,7 +116,9 @@ const PrintTable = ({
     const id = (e.target as HTMLButtonElement)?.id
     const data = tableData.find(e => e._id === id)
     const value = (e.target as HTMLButtonElement)?.value
-    setData({ ...data, status: value })
+    if (data) {
+      setData({ ...data, status: value } as T)
+    }
   }
 
   const buttonColor = (k: string) => {
