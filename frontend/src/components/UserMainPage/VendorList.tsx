@@ -4,6 +4,7 @@ import PrintTable from "./Table";
 import RegisterUserData from "../UserRegistration/RegisterUserData";
 import Message from "../TostMessage/Message";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
+import { VendorData } from "../../Types/Types";
 
 const VendorList = () => {
   // useEffect for the set bg height and width
@@ -12,35 +13,26 @@ const VendorList = () => {
   useEffect(() => {
     setHeight(window.innerHeight);
     setWidth(window.innerWidth);
-    // eslint-disable-next-line
+
   }, [window.innerHeight, window.innerWidth]);
 
-  const [data, setData] = useState({
-    city: "",
-    country: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    role: "",
-    _id: "",
-    status: ""
-  });
+  const [data, setData] = useState<VendorData>();
   const [openModal, setOpenModal] = useState<number>(0);
   const [reApiCall, setReApiCall] = useState<number>(0);
 
   useEffect(() => {
-    if (data?.role?.length > 0 && data?.status === "edit") {
+    if (data?.role?.length as number > 0 && data?.status === "edit") {
       setOpenModal(2);
       setTimeout(() => {
         setOpenModal(0);
       }, 1000);
     }
-    // eslint-disable-next-line
+
   }, [data]);
 
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const resetModalValue = (e: string) => {
+  const resetModalValue = (e: string | number) => {
     if (e === "updated") {
       setSuccessMessage("User Updated Successfully!!");
       setReApiCall(1);
@@ -62,7 +54,7 @@ const VendorList = () => {
   const [id, setId] = useState<string>("");
   // function to reset confirmation modal value
   const [openConfirmationModal, setOpenConfirmationModal] = useState<number>(0);
-  const resetConfirmationModal = (e: number) => {
+  const resetConfirmationModal = (e: number | string) => {
     if (e === 1) {
       setReApiCall(1);
       setSuccessMessage("User Removed Successfully!!");

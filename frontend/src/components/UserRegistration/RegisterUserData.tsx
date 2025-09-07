@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { Button, Dialog, DialogHeader, DialogBody } from "@material-tailwind/react"
 import CheckOTP from '../CheckOTP/CheckOTP';
 
-export default function RegisterUserData({ userData, openModal, resetModalValue }: Readonly<{ userData: UserSignUp | undefined | UserRegistration, openModal: number, resetModalValue: Function }>) {
+export default function RegisterUserData({ userData, openModal, resetModalValue }: Readonly<{ userData: UserSignUp | undefined | UserRegistration, openModal: number, resetModalValue: (e: string | number) => void }>) {
 
     const logInUserData = useSelector((state: RootState) => state.value[0])
 
@@ -49,7 +49,7 @@ export default function RegisterUserData({ userData, openModal, resetModalValue 
     const [cityData, setCityData] = useState<Array<CityData>>([])
     useEffect(() => {
         const countryData = address.Country.find((d) => d.CountryName === values.userCountry);
-        const city: any = address.Cities.filter((d) => d.CountryID === countryData?.CountryID);
+        const city: Array<CityData> = address.Cities.filter((d) => String(d.CountryID) === String(countryData?.CountryID));
         setCityData(city)
     }, [values.userCountry]);
 
@@ -123,7 +123,7 @@ export default function RegisterUserData({ userData, openModal, resetModalValue 
             // navigate('/user-page')
             resetModalValue(0)
         }
-        // eslint-disable-next-line
+
     }, [])
 
     // useEffect to set the data for update user data
@@ -141,7 +141,7 @@ export default function RegisterUserData({ userData, openModal, resetModalValue 
             }
             setValues(updateUserData)
         }
-        // eslint-disable-next-line
+
     }, [userData])
 
     // Function and state for open and close modal
@@ -159,7 +159,7 @@ export default function RegisterUserData({ userData, openModal, resetModalValue 
         if (openModal === 2) {
             handleOpen()
         }
-        // eslint-disable-next-line
+
     }, [openModal])
 
     return (
@@ -211,7 +211,7 @@ export default function RegisterUserData({ userData, openModal, resetModalValue 
                                         <select name="userCountry" id="userCountry" className='w-full rounded-lg h-8 font-semibold' value={values?.userCountry} onChange={handleChange} onBlur={handleBlur}>
                                             <option value="def">Please Select</option>
                                             {
-                                                address.Country.map((e: any) => {
+                                                address.Country.map((e) => {
                                                     return (
                                                         <option value={e.CountryName} key={e.CountryID}>{e.CountryName}</option>
                                                     )
@@ -227,7 +227,7 @@ export default function RegisterUserData({ userData, openModal, resetModalValue 
                                         <select name="userCity" id="userCity" className='w-full rounded-lg h-8 font-semibold' value={values?.userCity} onChange={handleChange} onBlur={handleBlur}>
                                             <option value="def">Please Select</option>
                                             {
-                                                cityData.map((e: any) => {
+                                                cityData.map((e) => {
                                                     return (
                                                         <option value={e.Name} key={e.CityID}>{e.Name}</option>
                                                     )

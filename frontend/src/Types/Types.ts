@@ -8,7 +8,7 @@ export interface Data {
 
 // INterface for the city object data
 export interface CityData {
-    CityID: number,
+    CityID: string,
     Name: string,
     CountryID: string
 }
@@ -108,19 +108,11 @@ export interface EditStockData {
 // Interface for types of confirmation modal
 export interface ConfirmationModalTypes {
     openConfirmationModal: number
-    resetConfirmationModal: Function
+    resetConfirmationModal: (e: string | number) => void
     deleteEndPoint: string
     id: string
     title: string
     message: string
-}
-
-// Interface for print-table
-export interface TableTypes {
-    endPoint: string,
-    reApiCall: number,
-    setData: React.Dispatch<React.SetStateAction<any>>,
-    controllers: Array<string>
 }
 
 // Interface for update stock request
@@ -131,4 +123,24 @@ export interface StockRequest {
     status: string
     update: boolean
     _id: string
+}
+
+// Vendor data type
+export interface VendorData {
+    city: string,
+    country: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    role: string,
+    _id: string,
+    status: string
+}
+
+// Interface for print-table
+export interface TableTypes<T> {
+    endPoint: string,
+    reApiCall: number,
+    setData: React.Dispatch<React.SetStateAction<T>>,
+    controllers: Array<string>
 }

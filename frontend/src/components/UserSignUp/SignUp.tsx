@@ -9,7 +9,7 @@ import { Data, UserSignUp } from '../../Types/Types';
 import { Button, Dialog, DialogHeader, DialogBody } from "@material-tailwind/react"
 import RegisterUserData from '../UserRegistration/RegisterUserData';
 
-export default function SignUp({ openModal, resetModalValue }: { openModal: number, resetModalValue: Function }) {
+export default function SignUp({ openModal, resetModalValue }: { openModal: number, resetModalValue: (e: string | number) => void }) {
 
     // Function to print error Message
     const errorMessage = (data: string) => {
@@ -29,7 +29,7 @@ export default function SignUp({ openModal, resetModalValue }: { openModal: numb
     const { values, errors, handleBlur, handleChange, handleSubmit, touched } = useFormik({
         initialValues: { userEmail: "", userPassword: "" },
         validationSchema: validatePassword,
-        onSubmit: (values: any) => {
+        onSubmit: (values) => {
             signUpUser(values)
         }
     })
@@ -53,7 +53,7 @@ export default function SignUp({ openModal, resetModalValue }: { openModal: numb
             else if (res.Message.includes("User Already Exist")) {
                 errorMessage("User Already Exist");
             }
-        }).catch((err) => {
+        }).catch(() => {
             errorMessage("Something Went Wrong");
         })
     }
@@ -83,7 +83,7 @@ export default function SignUp({ openModal, resetModalValue }: { openModal: numb
         if (openModal === 1) {
             handleOpen()
         }
-        // eslint-disable-next-line
+
     }, [openModal])
 
     return (

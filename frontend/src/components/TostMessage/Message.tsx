@@ -8,14 +8,14 @@ export default function Message({ successMessage, errorMessage }: Readonly<{ suc
         if (successMessage?.length > 0) {
             sMessage(successMessage)
         }
-        // eslint-disable-next-line
+
     }, [successMessage])
 
     useEffect(() => {
         if (errorMessage?.length > 0) {
             eMessage(errorMessage)
         }
-        // eslint-disable-next-line
+
     }, [errorMessage])
 
     const eMessage = (data: string) => {

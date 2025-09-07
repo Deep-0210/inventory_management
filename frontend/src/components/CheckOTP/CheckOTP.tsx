@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { Button, Dialog, DialogHeader, DialogBody } from "@material-tailwind/react"
 import Message from '../TostMessage/Message';
 
-export default function CheckOTP({ openModal, registerData, resetModalValue }: { openModal: number, registerData: UserRegistration | undefined, resetModalValue: Function }) {
+export default function CheckOTP({ openModal, registerData, resetModalValue }: { openModal: number, registerData: UserRegistration | undefined, resetModalValue: (e: string | number) => void }) {
 
     // Function to validate OTP
     const validateOTP = Yup.object({
@@ -28,7 +28,7 @@ export default function CheckOTP({ openModal, registerData, resetModalValue }: {
         if (!registerData?.email) {
             resetModalValue(0)
         }
-        // eslint-disable-next-line
+
     }, [])
 
     // Function to submit userData
@@ -79,7 +79,7 @@ export default function CheckOTP({ openModal, registerData, resetModalValue }: {
         if (openModal === 3) {
             handleOpen()
         }
-        // eslint-disable-next-line
+
     }, [openModal])
 
     const [successMessage, setSuccessMessage] = useState<string>('')
