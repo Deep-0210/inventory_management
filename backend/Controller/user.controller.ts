@@ -10,6 +10,7 @@ export const checkUserExist = async (req: Request, res: Response) => {
         return responseData(res, isUserExist.status, isUserExist.message, isUserExist.data);
 
     } catch (error) {
+        console.log(`Error in check user exist controller: ${error}`)
         return serverErrorMessage(res, { error });
     }
 };

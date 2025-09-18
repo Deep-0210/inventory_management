@@ -1,6 +1,6 @@
 import { otpModel } from "../Models/otp.model";
 import { userRegisterModel } from "../Models/user.model";
-import redisClient from "../redisClient";
+// import redisClient from "../redisClient";
 import { validateEmail, validateUserCredentials } from "../Validation/ValidateCheckUserExist";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -12,21 +12,23 @@ import { createProfile } from "../View/CreateProfile";
 
 export const checkUserExistService = async (email: string): Promise<UserServiceType> => {
     try {
-        const checkUser = await userRegisterModel.findOne({ email: email }).exec();
-
-        if (checkUser) {
-            return { status: 200, message: "User Already Exist" };
-        }
 
         const isEmailValidate = validateEmail({ email });
 
         if (isEmailValidate.error) {
-            return { status: 200, message: isEmailValidate.error.details[0].message, data: null };
+            return { status: 400, message: isEmailValidate.error.details[0].message, data: null };
         }
+        const checkUser = await userRegisterModel.findOne({ email: email });
+
+        if (checkUser) {
+            return { status: 200, message: "User Already Exist", data: null };
+        }
+
 
         return { status: 200, message: "New User", data: null };
     }
     catch (error) {
+        console.log(`Error in check user exist service: ${error}`)
         return { status: 500, message: "Internal Server Error", data: error };
     }
 }
@@ -46,7 +48,7 @@ export const userLoginService = async ({ email, password }: UserCredentialsType)
 
             if (validatePassword) {
                 const token = jwt.sign({ "email": userData.email }, `${process.env.JWT_SECRETE_KEY}`, { expiresIn: "10h" });
-                await redisClient.setEx(`user:${email}`, 60, token);
+                // await redisClient.setEx(`user:${email}`, 60, token)\;
                 return { status: 200, message: "LogIn successful", data: token };
             }
             else {
@@ -77,18 +79,25 @@ export const generateForgetPasswordOtpService = async (email: string): Promise<U
         const userOtp = Math.floor(Math.random() * 1000000);
 
         const template: string = ForgetOTPTemplate(userOtp.toString(), userData?.firstName, userData?.lastName);
-        const mail = await userMail(email, "testuser02002@gmail.com", template, "OTP from Inventory Management");
+        // const mail = await userMail(email, "testuser02002@gmail.com", template, "OTP from Inventory Management");
 
-        if (!mail.response) {
-            return { status: 500, message: "Fail to send OTP", data: null };
-        }
+        // if (!mail.response) {
+        //     return { status: 500, message: "Fail to send OTP", data: null };
+        // }
 
-        await otpModel.findOneAndUpdate({ email },
-            {
-                $set: { otp: userOtp.toString() },
-                $setOnInsert: { otpType: "forgotOtp", }
-            },
-            { upsert: true, new: true });
+        await otpModel.create({
+            email,
+            otp: userOtp.toString(),
+            otpType: "forgotOtp",
+            createdAt: new Date()
+        })
+
+        // await otpModel.create({ email },
+        //     {
+        //         $set: { otp: userOtp.toString() },
+        //         $setOnInsert: { otpType: "forgotOtp", createdAt: new Date() }
+        //     },
+        //     { new: true });
         return { status: 200, message: "OTP Generated Successfully", data: null };
     }
     catch (error) {
