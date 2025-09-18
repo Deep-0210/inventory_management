@@ -15,4 +15,8 @@ const userRegister = new mongoose.Schema({
 
 export const userRegisterModel = mongoose.model('userData', userRegister)
 
-userRegisterModel.createIndexes().then(() => console.log("userRegisterModel index created successfully")).catch((err) => console.log(`Index creation fail: ${err}`))
+userRegisterModel.collection.getIndexes().then((res) => {
+    console.log(`Created Index for User model:`, res)
+}).catch((err) => {
+    console.log("Something wrong in User Model Indexing", err)
+})

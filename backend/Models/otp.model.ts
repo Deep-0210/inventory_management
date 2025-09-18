@@ -9,3 +9,5 @@ const userOTP = new mongoose.Schema({
 );
 
 export const otpModel = mongoose.model('otp', userOTP);
+
+otpModel.collection.getIndexes().then((res) => console.log(res)).catch((err) => console.log(err)) 
