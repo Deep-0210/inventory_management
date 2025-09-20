@@ -1,7 +1,7 @@
-export type UserServiceType = {
+export type UserServiceType<T> = {
     status: number
     message: string
-    data?: any
+    data?: T
 };
 
 export type UserCredentialsType = {
@@ -27,4 +27,14 @@ export type UserRegisterOtpType = UserDataType & {
     otp: string
     password: string
     userEmail: string
+}
+
+export type SendUser = {
+    email: string,
+    firstName: string
+    lastName: string
+    country: string
+    city: string
+    role: 'superVendor' | 'adminVendor' | 'vendor',
+    password: string
 }

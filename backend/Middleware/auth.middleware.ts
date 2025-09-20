@@ -11,6 +11,7 @@ export const middleware = async (req: Request, res: Response, next: NextFunction
             next();
         }
     } catch (error) {
+        console.log(`Error in middleware: ${error}`)
         res.status(401).json({ "Message": "Unauthorized Access" });
     }
 }

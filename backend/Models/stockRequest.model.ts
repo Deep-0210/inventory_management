@@ -1,6 +1,15 @@
 import mongoose, { Schema } from "mongoose";
 
-const requestedStock = new mongoose.Schema({
+interface RequestedStock extends Document {
+    requestedId: Schema.Types.ObjectId
+    attendantId: Schema.Types.ObjectId
+    productName: string
+    productPrice: string
+    productQuantity: string
+    status: "pending" | "accepted" | "rejected";
+}
+
+const RequestStockSchema = new mongoose.Schema<RequestedStock>({
     requestedId: { type: Schema.Types.ObjectId, ref: "userData", required: true },
     attendantId: { type: Schema.Types.ObjectId, ref: "userData", required: true },
     productName: { type: String, required: true },
@@ -11,4 +20,4 @@ const requestedStock = new mongoose.Schema({
     { timestamps: true }
 );
 
-export const userRequestedStock = mongoose.model('requestedStock', requestedStock);
+export const RequestedStock = mongoose.model<RequestedStock>('requestedStock', RequestStockSchema);
