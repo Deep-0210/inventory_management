@@ -18,17 +18,17 @@ export const checkUserExistService = async (email: string): Promise<UserServiceT
         if (isEmailValidate.error) {
             return { status: 400, message: isEmailValidate.error.details[0].message, data: null };
         }
-        const checkUser = await userRegisterModel.findOne({ email: email });
+
+        const checkUser = await userRegisterModel.findOne({ email });
 
         if (checkUser) {
             return { status: 200, message: "User Already Exist", data: null };
         }
 
-
         return { status: 200, message: "New User", data: null };
     }
     catch (error) {
-        console.log(`Error in check user exist service: ${error}`)
+        console.log(`Error in check user exist service: ${JSON.stringify(error, null, 2)}`)
         return { status: 500, message: "Internal Server Error", data: error };
     }
 }

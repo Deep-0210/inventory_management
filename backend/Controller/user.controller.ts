@@ -5,9 +5,9 @@ import { responseData, serverErrorMessage } from '../Utils/responseHandler';
 export const checkUserExist = async (req: Request, res: Response) => {
     try {
         const { email } = req.body;
-        const isUserExist = await checkUserExistService(email);
+        const { status, message, data } = await checkUserExistService(email);
 
-        return responseData(res, isUserExist.status, isUserExist.message, isUserExist.data);
+        return responseData(res, status, message, data);
 
     } catch (error) {
         console.log(`Error in check user exist controller: ${error}`)
