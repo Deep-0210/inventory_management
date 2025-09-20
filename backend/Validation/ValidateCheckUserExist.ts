@@ -11,7 +11,7 @@ export const validateUserCredentials = (data: object) => {
 
 export const validateEmail = (data: object) => {
     const validateEmail = joi.object({
-        email: joi.string().email().required(),
+        email: joi.string().email({ tlds: false }).required(),
     });
 
     return validateEmail.validate(data)

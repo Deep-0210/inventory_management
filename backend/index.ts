@@ -47,7 +47,7 @@ const requestLogs = async (req: Request, res: Response, next: NextFunction) => {
 // import('./redisClient').then(async ({ default: redisClient }) => {
 // await redisClient.connect();
 
-const app = express();
+export const app = express();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(requestLogs);
 app.use(express.json());
