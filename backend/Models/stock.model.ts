@@ -1,6 +1,13 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
-const addStock = new mongoose.Schema({
+interface StockSchema extends Document {
+    vendorId: Schema.Types.ObjectId
+    productName: string
+    productQuantity: string
+    productPrice: string
+}
+
+const StockSchema = new mongoose.Schema<StockSchema>({
     vendorId: { type: Schema.Types.ObjectId, required: true, ref: 'userData' },
     productName: { type: String, required: true, trim: true },
     productQuantity: { type: String, required: true, min: [1, "Quantity must be grater than 0"] },
@@ -9,4 +16,4 @@ const addStock = new mongoose.Schema({
     { timestamps: true }
 );
 
-export const addNewStock = mongoose.model('vendorStock', addStock)
+export const Stock = mongoose.model<StockSchema>('vendorStock', StockSchema)

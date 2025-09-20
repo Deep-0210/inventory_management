@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export const validateAddStockData = (data: Object) => {
+export const validateAddStockData = (data: object) => {
     const validateData = joi.object({
         productName: joi.string().required(),
         productQuantity: joi.string().required(),
