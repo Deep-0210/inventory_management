@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  app:
+    image: node:18-alpine
+    container_name: inventory
+    working_dir: /usr/src/app
+    volumes:
+      - ./backend:/usr/src/app # Mount backend folder
+      - /usr/src/app/node_modules
+    command: sh -c "npm install && npx ts-node index.ts"
+    ports:
+      - "3005:3005"
+    environment:
+      - PORT=3005
+      - MONGO_URI=mongodb://mongo:27017/inventory
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:6
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

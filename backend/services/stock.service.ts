@@ -33,6 +33,22 @@ export const getAdminStockService = async (email: string): Promise<UserServiceTy
 
         const stockData = await Stock.find({ "vendorId": userData?.vendorRef }).select({ vendorId: 0, createdAt: 0, updatedAt: 0, __v: 0 });
 
+        const aggregateData = await Stock.aggregate([
+            {
+                $match: { vendorId: { $eq: userData?.vendorRef } }
+            },
+            {
+                $lookup: {
+                    from: "userdatas",
+                    localField: "vendorId",
+                    foreignField: "_id",
+                    as: "userData"
+                }
+            }
+        ]);
+
+        console.log(JSON.stringify(aggregateData, null, 2))
+
         return { status: 200, message: "Admin stock data fetched successfully", data: stockData };
     } catch (error) {
         return { status: 500, message: "Internal Server Error", data: JSON.stringify(error, null, 2) };
