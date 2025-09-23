@@ -1,0 +1,86 @@
+Node Advance:
+
+Topic:
+    1. Advance Node.js concepts:
+        1. Implement an event-driven architecture using Node.js's EventEmitter to handle asynchronous operations
+            -- Node Advance repo -> EventDrivenArchitecture
+        2. Use streams to efficiently process and manipulate large amounts of data in Node.js
+            -- Node Advance repo -> StreamLargeData
+        3. Implement worker threads to perform parallel processing tasks in a Node.js application
+            -- Node Advance repo -> WorkerThread
+        4. Design and develop a microservice architecture with Node.js services communicating through message queues
+            -- Micro service architecture repo
+        5. Optimize the performance of a Node.js application by identifying and resolving bottlenecks
+            -- Caching -- Redis
+            -- Query optimization
+            -- pm2 for monit -- pm2 list 
+            -- Clustering to utilize full CPU
+            -- API response time
+        6. Implement advanced security mechanisms such as OAuth or JWT-based authentication in a Node.js application
+            -- Authentication for protected routes
+        7. Build a distributed system using Node.js that communicates through message queues
+            -- gRpc for internal communicating
+        8. Containerize a Node.js application using Docker and deploy it to a cloud platform
+            -- RUN docker-compose.yml and build it
+        9.  Able to write unit test cases and able to write the integration test cases
+            -- check __test__ folder for test cases
+
+    2. Advanced Database Integration
+        1. Perform advanced database queries in Node.js, including joins and subqueries
+            -- Check NestedMongoQuery
+        2. Implement database transactions to ensure data integrity and consistency
+            -- remain
+        3. Optimize database queries by creating indexes and using query optimization techniques
+            -- Have redis in main file and also applied indexing in collection
+        4. Use database migration tools to manage database schema changes in a Node.js application
+            -- remain
+        5. Perform database operations using an ORM library like Knex or Sequelize or TypeORM
+            -- We have inventory code in SQL and Postgres
+
+    3. Advanced Authentication and Authorization
+        1. Implement multi-factor authentication (MFA) in a Node.js application using a library or service
+            -- CandiHire repo -- user can login with microsoft authenticate application
+        2. Implement role-based access control (RBAC) with different user roles and permissions
+            -- If the vendor is not belong to the parent vendor then he can't modify the user
+        3. Integrate single sign-on (SSO) functionality using popular identity providers (e.g., OAuth, SAML)
+            -- remain
+        4. Follow security best practices for handling user credentials, including secure storage and encryption
+            -- Password hashing to hide the original password
+        5. Implement fine-grained authorization and access control based on user roles and permissions
+            -- If the vendor is not belong to the parent vendor then he can't modify the user
+
+    4. Advanced Error Handling and Logging
+        1. Implement centralized error handling and logging in a Node.js application to capture and log errors
+            -- remain (err, req, res, next)
+        2. Handle errors in asynchronous operations and propagate them correctly throughout the application
+            -- Global error handling in main backed file and add logs if any error communicates
+        3. Set up error monitoring and alerting to receive notifications for critical errors
+            -- remain
+        4. Configure different logging levels and implement log rotation for managing log files
+            -- remain
+        5. Integrate with a third-party logging service and send application logs to it for analysis and monitoring
+            -- remain
+    
+    5. Advanced Performance Monitoring and Optimization
+        1. Use profiling and benchmarking tools to analyze the performance of a Node.js application and identify bottlenecks
+            -- PM2 plus portal for monitor and check logs from there
+        2. Optimize memory management and garbage collection in a Node.js application to improve performance
+            -- remain
+        3. Implement caching mechanisms using Redis or Memcached to cache frequently accessed data
+            -- Token caching
+        4. Perform load testing on a Node.js application and apply performance tuning techniques
+            -- autocanon
+        5. Design and implement scaling and load balancing strategies for a Node.js application to handle high traffic
+            -- remain
+    
+    6. Advanced Security and Compliance
+        1. Implement secure handling of sensitive data, including encryption and data masking techniques
+            -- Password hashing
+        2. Perform security testing and vulnerability scanning on a Node.js application to identify and address security vulnerabilities
+            -- remain
+        3. Ensure compliance with data protection regulations (e.g., GDPR, HIPAA) when handling user data
+            -- remain
+        4. Configure and enable secure communication protocols (TLS/SSL) for a Node.js
+            -- SSL certificate
+        5. Set up security monitoring and incident response mechanisms to detect and respond to security incidents in a Node.js application
+            -- remain

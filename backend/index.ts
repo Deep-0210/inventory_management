@@ -57,6 +57,30 @@ app.use('/', route);
 
 connectDb();
 
+// manage global error not handle from the async/wait code
+process.on("uncaughtException", (err) => {
+    console.error("Uncaught Exception:", err);
+    const log = `${err}\n\n`
+
+    fs.appendFile("error.txt", log, "utf-8", (err) => {
+        if (err) console.log("Error while log the error")
+    })
+    process.exit(1); // exit to avoid inconsistent state
+});
+
+// manage global error not managed from the Promise or if Promise got rejected
+process.on("unhandledRejection", (reason, promise) => {
+    console.error("Unhandled Rejection at:", promise, "reason:", reason);
+
+    const log = `Unhandled Rejection at: ${promise} reason ${reason}\n\n`
+
+    fs.appendFile("error.txt", log, "utf-8", (err) => {
+        if (err) console.log("Error while log the error")
+    })
+
+    process.exit(1);
+});
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT} [PID ${process.pid}]`);
 });

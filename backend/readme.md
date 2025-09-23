@@ -31,3 +31,7 @@
 4. <code>"test": "jest"</code> add in package.json script to run test cases
 
 5. <code>npm test</code> command to tun test cases
+
+**Advance Database Query**
+
+- I have added one most advance query which is possible for this project. For that you can check <b>NestedMongoQuery.ts</b> file to get better idea about how to write a nested queries.
