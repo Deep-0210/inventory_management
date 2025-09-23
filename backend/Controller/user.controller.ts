@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { checkForgetPasswordOtpService, checkRegistrationOtpService, checkUserExistService, deleteUserDataService, generateForgetPasswordOtpService, getLoginUserDataService, registrationOtpService, updateUserDataService, updateUserPasswordService, userLoginService } from '../services/user.service';
 import { responseData, serverErrorMessage } from '../Utils/responseHandler';
 
@@ -70,14 +70,15 @@ export const logInUserData = async (req: Request, res: Response) => {
     }
 };
 
-export const registrationOtp = async (req: Request, res: Response) => {
+export const registrationOtp = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email, firstName, lastName, country, role, city } = req.body;
         const registrationOtp = await registrationOtpService({ email, firstName, lastName, country, role, city });
 
         return responseData(res, registrationOtp.status, registrationOtp.message, registrationOtp.data);
     } catch (error) {
-        return serverErrorMessage(res, { error });
+        next(error)
+        // return serverErrorMessage(res, { error });
     }
 }
 
