@@ -29,11 +29,11 @@ Topic:
         1. Perform advanced database queries in Node.js, including joins and subqueries
             -- Check NestedMongoQuery
         2. Implement database transactions to ensure data integrity and consistency
-            -- remain
+            -- Added in income calculator Addamount.ts file 
         3. Optimize database queries by creating indexes and using query optimization techniques
             -- Have redis in main file and also applied indexing in collection
         4. Use database migration tools to manage database schema changes in a Node.js application
-            -- remain
+            -- Sequelize-ORM have migrations
         5. Perform database operations using an ORM library like Knex or Sequelize or TypeORM
             -- We have inventory code in SQL and Postgres
 
@@ -51,36 +51,44 @@ Topic:
 
     4. Advanced Error Handling and Logging
         1. Implement centralized error handling and logging in a Node.js application to capture and log errors
-            -- remain (err, req, res, next)
+            -- Added in income-calculator
         2. Handle errors in asynchronous operations and propagate them correctly throughout the application
             -- Global error handling in main backed file and add logs if any error communicates
         3. Set up error monitoring and alerting to receive notifications for critical errors
-            -- remain
+            -- We can use Sentry --income calculator
         4. Configure different logging levels and implement log rotation for managing log files
-            -- remain
+            -- Added in inventory management
         5. Integrate with a third-party logging service and send application logs to it for analysis and monitoring
-            -- remain
+            -- We can use Sentry --income calculator
     
     5. Advanced Performance Monitoring and Optimization
         1. Use profiling and benchmarking tools to analyze the performance of a Node.js application and identify bottlenecks
             -- PM2 plus portal for monitor and check logs from there
         2. Optimize memory management and garbage collection in a Node.js application to improve performance
-            -- remain
+            -- node --max-old-space-size=4096 app.js
+            -- For large data we can use streaming
+            -- Chrome dev tools
         3. Implement caching mechanisms using Redis or Memcached to cache frequently accessed data
             -- Token caching
         4. Perform load testing on a Node.js application and apply performance tuning techniques
             -- autocanon
         5. Design and implement scaling and load balancing strategies for a Node.js application to handle high traffic
-            -- remain
+            -- Leave
     
     6. Advanced Security and Compliance
         1. Implement secure handling of sensitive data, including encryption and data masking techniques
             -- Password hashing
         2. Perform security testing and vulnerability scanning on a Node.js application to identify and address security vulnerabilities
-            -- remain
+            -- helmet
         3. Ensure compliance with data protection regulations (e.g., GDPR, HIPAA) when handling user data
-            -- remain
+            -- GDPR --> transparency, use data for specific purpose, Accuracy, Accountability
+            -- HIPPA --> U.S. healthcare providers --> privacy, security, privacy breach notification
         4. Configure and enable secure communication protocols (TLS/SSL) for a Node.js
             -- SSL certificate
         5. Set up security monitoring and incident response mechanisms to detect and respond to security incidents in a Node.js application
-            -- remain
+            -- Log management (winston,pino)
+            -- Real-time monitoring
+            -- Database backup
+            -- Account compromise -- (reset password notify user)
+            -- enable rate limiting
+            -- use data sanitize (helmet)
