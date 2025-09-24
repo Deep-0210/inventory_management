@@ -4,11 +4,12 @@ import { User } from "../Models/user.model";
 import { validateEmail, validateUserCredentials } from "../Validation/ValidateCheckUserExist";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-// import { ForgetOTPTemplate } from "../View/ForgetOTP";
-import { userMail } from "../services/mail.service";
+import { ForgetOTPTemplate } from "../View/ForgetOTP";
+// import { userMail } from "../services/mail.service";
 import { validateRegisterUser } from "../Validation/ValidateUserRegisterData";
 import { OtpType, UserCredentialsType, UserDataType, UserRegisterOtpType, UserServiceType } from "../types/user.types";
-import { createProfile } from "../View/CreateProfile";
+import { userMail } from "./mail.service";
+// import { createProfile } from "../View/CreateProfile";
 
 export const checkUserExistService = async (email: string): Promise<UserServiceType<string | object>> => {
     try {
@@ -20,6 +21,7 @@ export const checkUserExistService = async (email: string): Promise<UserServiceT
         }
 
         const checkUser = await User.findOne({ email });
+        console.log({ checkUser })
 
         if (checkUser) {
             return { status: 200, message: "User Already Exist" };
@@ -76,28 +78,23 @@ export const generateForgetPasswordOtpService = async (email: string): Promise<U
             return { status: 200, message: "User not found", };
         }
 
-        const userOtp = Math.floor(Math.random() * 1000000);
+        const userOtp = Math.floor(Math.random() * 1000000).toString();
 
-        // const template: string = ForgetOTPTemplate(userOtp.toString(), userData?.firstName, userData?.lastName);
-        // const mail = await userMail(email, "testuser02002@gmail.com", template, "OTP from Inventory Management");
+        const template: string = ForgetOTPTemplate(userOtp.toString(), userData?.firstName, userData?.lastName);
+        const mail = await userMail(email, "testuser02002@gmail.com", template, "OTP from Inventory Management");
 
-        // if (!mail.response) {
-        //     return { status: 500, message: "Fail to send OTP",  };
-        // }
+        // await senEmail(userOtp, "Deep", "Patel", email, "OTP from Inventory Management")
 
-        await otpModel.create({
-            email,
-            otp: userOtp.toString(),
-            otpType: "forgotOtp",
-            createdAt: new Date()
-        })
+        if (!mail.response) {
+            return { status: 500, message: "Fail to send OTP", };
+        }
 
-        // await otpModel.create({ email },
-        //     {
-        //         $set: { otp: userOtp.toString() },
-        //         $setOnInsert: { otpType: "forgotOtp", createdAt: new Date() }
-        //     },
-        //     { new: true });
+        await otpModel.create({ email },
+            {
+                $set: { otp: userOtp.toString() },
+                $setOnInsert: { otpType: "forgotOtp", createdAt: new Date() }
+            },
+            { new: true });
         return { status: 200, message: "OTP Generated Successfully", };
     }
     catch (error) {
@@ -177,12 +174,12 @@ export const registrationOtpService = async ({ email, firstName, lastName, count
 
         const userRegistrationOtp = Math.floor(Math.random() * 1000000);
 
-        const template = createProfile(userRegistrationOtp.toString(), firstName, lastName);
-        const mail = await userMail(email, "testuser02002@gmail.com", template, "OTP from Inventory Management");
+        // const template = createProfile(userRegistrationOtp.toString(), firstName, lastName);
+        // const mail = await userMail(email, "testuser02002@gmail.com", template, "OTP from Inventory Management");
 
-        if (!mail.response) {
-            return { status: 500, message: "Fail to send Mail", };
-        }
+        // if (!mail.response) {
+        //     return { status: 500, message: "Fail to send Mail", };
+        // }
 
         await otpModel.findOneAndUpdate({ email },
             {
@@ -247,6 +244,7 @@ export const checkRegistrationOtpService = async ({ email, firstName, lastName, 
         const token = jwt.sign({ "email": email }, `${process.env.JWT_SECRETE_KEY}`, { expiresIn: '10 hr' });
         return { status: 200, message: "User created successfully", data: token };
     } catch (error) {
+        console.log(`Error in check-register-otp-service:${error}`)
         return { status: 500, message: "Internal Server Error", data: error ?? '' };
     }
 };

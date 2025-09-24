@@ -2,8 +2,8 @@ import { RequestedStock } from "../Models/stockRequest.model";
 import { User } from "../Models/user.model";
 import { SendStockData, StockType } from "../types/stock.type";
 import { SendUser, UserServiceType } from "../types/user.types";
-import { userMail } from "../services/mail.service";
 import { SendStockRequest } from "../View/sendStockRequest";
+import { userMail } from "../services/mail.service";
 
 export const childVendorListService = async (email: string): Promise<UserServiceType<Array<SendUser> | string>> => {
     try {

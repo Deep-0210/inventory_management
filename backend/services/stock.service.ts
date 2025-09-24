@@ -3,9 +3,9 @@ import { RequestedStock } from "../Models/stockRequest.model";
 import { User } from "../Models/user.model";
 import { SendRequestedStock, SendStockData, StockType } from "../types/stock.type";
 import { UserServiceType } from "../types/user.types";
-import { userMail } from "../services/mail.service";
+// import { userMail } from "../services/mail.service";
 import { validateAddStockData } from "../Validation/ValidateNewStockData";
-import { SendStockResponse } from "../View/sendStockResponse";
+// import { SendStockResponse } from "../View/sendStockResponse";
 
 export const getStockService = async (email: string): Promise<UserServiceType<Array<SendStockData> | string>> => {
     try {
@@ -154,13 +154,13 @@ export const respondRequestedStockService = async ({ email, id, status }: { emai
             return { status: 400, message: "Requested user not found" };
         }
 
-        const template = SendStockResponse(subUserData?.firstName, subUserData?.lastName, requestedData?.productName, requestedData?.productPrice, requestedData?.productQuantity, status + 'ed');
+        // const template = SendStockResponse(subUserData?.firstName, subUserData?.lastName, requestedData?.productName, requestedData?.productPrice, requestedData?.productQuantity, status + 'ed');
 
-        const mail = await userMail(subUserData?.email, userData?.email, template, `Stock response from ${userData?.firstName} ${userData?.lastName}`);
+        // const mail = await userMail(subUserData?.email, userData?.email, template, `Stock response from ${userData?.firstName} ${userData?.lastName}`);
 
-        if (!mail.response) {
-            return { status: 500, message: "Fail to send message" };
-        }
+        // if (!mail.response) {
+        //     return { status: 500, message: "Fail to send message" };
+        // }
 
         const respondedData = new RequestedStock({
             requestedId: requestedData?.requestedId?.toString(),

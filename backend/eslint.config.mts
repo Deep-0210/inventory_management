@@ -15,7 +15,8 @@ export default defineConfig([
       "swagger-output.json",
       "__test__/",
       "babel.config.js",
-      "jest.config.js"
+      "jest.config.js",
+      "NestedMongoQuery.ts"
     ],
   },
   {
