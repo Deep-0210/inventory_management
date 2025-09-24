@@ -27,8 +27,7 @@ describe("CHeck user exist controller", () => {
         expect(User.findOne).toHaveBeenCalledWith({ email: "deep485386@gmail.com" });
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({
-            message: "User Already Exist",
-            data: null
+            message: "User Already Exist"
         })
     });
 
@@ -41,8 +40,7 @@ describe("CHeck user exist controller", () => {
         expect(User.findOne).toHaveBeenCalledWith({ email: "deep4853861@gmail.com" });
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({
-            message: "New User",
-            data: null
+            message: "New User"
         })
     });
 
@@ -69,8 +67,7 @@ describe("CHeck user exist controller", () => {
 
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({
-            message: "User Already Exist",
-            data: null
+            message: "User Already Exist"
         })
     })
 })

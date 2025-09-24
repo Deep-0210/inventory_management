@@ -18,3 +18,4 @@ export const userMail = async (email: string, fromEmail: string, template: strin
 
     return await transporter.sendMail(mailOption)
 }
+
