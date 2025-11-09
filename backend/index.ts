@@ -9,7 +9,7 @@ import { connectDb } from './db/db.connect';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger-output.json';
 import fs from 'fs';
-import { logger, saveSuccessLogs } from './logs/logger';
+// import { logger, saveSuccessLogs } from './logs/logger';
 import helmet from 'helmet';
 import { AppError } from './types/error.type';
 // import { pullSqs } from './SQS/sqs.config';
@@ -44,7 +44,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 app.use(globalLimiter);
-app.use(saveSuccessLogs);
+// app.use(saveSuccessLogs);
 app.use('/', route);
 
 connectDb();
@@ -53,17 +53,17 @@ connectDb();
 // pullSqs()
 
 // Your custom error handler
-app.use((err: AppError, req: Request, res: Response) => {
-    // Log error using winston or your logger
-    logger.error({
-        message: err.message,
-        stack: err.stack,
-        url: req.originalUrl,
-        method: req.method,
-    });
+// app.use((err: AppError, req: Request, res: Response) => {
+//     // Log error using winston or your logger
+//     logger.error({
+//         message: err.message,
+//         stack: err.stack,
+//         url: req.originalUrl,
+//         method: req.method,
+//     });
 
-    res.status(500).json({ message: err.message });
-});
+//     res.status(500).json({ message: err.message });
+// });
 
 // Global process error handlers
 process.on("uncaughtException", (err) => {
@@ -89,6 +89,8 @@ process.on("unhandledRejection", (reason, promise) => {
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT} [PID ${process.pid}]`);
 });
+
+export default app;
 
 // }).catch((err) => {
 //     console.error('Failed to connect to Redis:', err);
