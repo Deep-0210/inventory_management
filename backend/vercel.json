@@ -1,5 +1,4 @@
 {
-  "build": "sh vercel.sh",
   "version": 2,
   "builds": [
     {
