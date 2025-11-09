@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import route from './Routes';
@@ -11,7 +11,7 @@ import swaggerDocument from './swagger-output.json';
 import fs from 'fs';
 // import { logger, saveSuccessLogs } from './logs/logger';
 import helmet from 'helmet';
-import { AppError } from './types/error.type';
+// import { AppError } from './types/error.type';
 // import { pullSqs } from './SQS/sqs.config';
 
 dotenv.config();

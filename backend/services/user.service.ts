@@ -5,11 +5,10 @@ import { validateEmail, validateUserCredentials } from "../Validation/ValidateCh
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { ForgetOTPTemplate } from "../View/ForgetOTP";
-// import { userMail } from "../services/mail.service";
 import { validateRegisterUser } from "../Validation/ValidateUserRegisterData";
 import { OtpType, UserCredentialsType, UserDataType, UserRegisterOtpType, UserServiceType } from "../types/user.types";
 import { userMail } from "./mail.service";
-// import { createProfile } from "../View/CreateProfile";
+import { createProfile } from "../View/CreateProfile";
 
 export const checkUserExistService = async (email: string): Promise<UserServiceType<string | object>> => {
     try {
@@ -83,7 +82,7 @@ export const generateForgetPasswordOtpService = async (email: string): Promise<U
         const template: string = ForgetOTPTemplate(userOtp.toString(), userData?.firstName, userData?.lastName);
         const mail = await userMail(email, "testuser02002@gmail.com", template, "OTP from Inventory Management");
 
-        // await senEmail(userOtp, "Deep", "Patel", email, "OTP from Inventory Management")
+        // await sendEmail(userOtp, "Deep", "Patel", email, "OTP from Inventory Management")
 
         if (!mail.response) {
             return { status: 500, message: "Fail to send OTP", };
@@ -174,12 +173,12 @@ export const registrationOtpService = async ({ email, firstName, lastName, count
 
         const userRegistrationOtp = Math.floor(Math.random() * 1000000);
 
-        // const template = createProfile(userRegistrationOtp.toString(), firstName, lastName);
-        // const mail = await userMail(email, "testuser02002@gmail.com", template, "OTP from Inventory Management");
+        const template = createProfile(userRegistrationOtp.toString(), firstName, lastName);
+        const mail = await userMail(email, "testuser02002@gmail.com", template, "OTP from Inventory Management");
 
-        // if (!mail.response) {
-        //     return { status: 500, message: "Fail to send Mail", };
-        // }
+        if (!mail.response) {
+            return { status: 500, message: "Fail to send Mail", };
+        }
 
         await otpModel.findOneAndUpdate({ email },
             {
